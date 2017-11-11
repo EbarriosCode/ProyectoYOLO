@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using Web.Models;
 using Web.Models.ViewModels;
 
@@ -36,6 +37,22 @@ namespace Web.Controllers
 
             ApplicationUser Logueado = ctx.Users.FirstOrDefault(x => x.Id == IdUser);
             return View(Logueado);
+        }
+
+        [HttpGet]
+        public ActionResult MisViajes(int? page)
+        {
+            string IdUser = User.Identity.GetUserId();
+
+            List<Viaje> misViajes = db.Viajes.
+                                    Where(x => x.ApplicationUserId == IdUser).
+                                    OrderByDescending(x => x.ViajeId).                                    
+                                    ToList();
+            
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            
+            return View(misViajes.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpGet]

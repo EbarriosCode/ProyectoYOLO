@@ -1,0 +1,70 @@
+﻿@*@model List<Web.Models.Viaje>*@
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Web.Models.Viaje>
+
+@{
+    ViewBag.Title = "Mis Viajes";
+    Layout = "~/Views/Shared/_LayoutPanelUser.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="text-center">Mis Viajes (@Model.TotalItemCount)</h2>
+        </div>
+        <div class="col-md-6">
+            <a href="~/User/Viajes"><button type="button" class="btn btn-success">Publica tú Viaje  <i class="glyphicon glyphicon-plus"></i></button></a>
+        </div>        
+        
+        <div class="col-md-12" style="margin-top:15px">
+            <div class="grid_4 widget-shadow">
+                <article class="row">
+                    <br />
+                    <!--empiezan los registros-->
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-2">
+                            <center>
+                                <div class="col-md-2" style="width:100%; height: 50%; ">
+                                    <img src="~/FrontEnd/img/no-foto.jpg" alt="" style="vertical-align: middle; border: 4px; border-radius: 63%; width:40%;">
+                                </div>
+                                <div style=" width:100%; height: 50%; ">
+                                    <label style="width:49%; float:left; text-align: right; ">@item.ApplicationUser.Nombres</label>
+                                    <label for="" style="width:49%;text-align: left; float:right">@item.ApplicationUser.Apellidos</label>
+
+                                </div>
+                            </center>
+                        </div>
+
+                        <div class="col-md-10">
+                            <div class="col-md-9">
+
+                                <h3><label for="">@item.FechaSalida</label> a las <label for="">@item.HoraSalida</label> hrs.</h3>
+                                <div>
+                                    <span><i class="fa fa-map-marker" style="color:green"></i> Descripción de origen: @item.PuntoPartida</span>
+
+                                    <br />
+                                    <span><i class="fa fa-map-marker" style="color:red"></i> Descripción de destino: @item.PuntoDestino</span>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="col-md-3" style=" height:100%">
+                                <center style="margin-top:-15px">
+                                    <h2><span class="fa fa-quora"></span> <label for="">@item.Tarifa</label></h2>
+                                    <h4>Por asiento</h4>
+                                    <br />
+                                    <strong> @item.NumAsientos </strong> <span> asientos disponibles</span>                                    
+                                </center>                                
+                            </div>
+                        </div>
+                        <!--terminan los registros-->                        
+                    }
+                    
+                </article>
+
+            </div>
+            @Html.PagedListPager(Model, page => Url.Action("MisViajes", new { page = page }), PagedListRenderOptions.PageNumbersOnly)
+        </div>        
+    </div>
+</div>
+

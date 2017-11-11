@@ -650,6 +650,7 @@
     <Content Include="Views\User\ViajesContinuacion.cshtml" />
     <Content Include="Views\Home\BusquedaViajes.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
+    <Content Include="Views\User\MisViajes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
