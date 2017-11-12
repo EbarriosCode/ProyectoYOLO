@@ -1,5 +1,5 @@
-﻿@*@using PagedList.Mvc;
-@model PagedList.IPagedList<Web.Models.Viaje>*@
+﻿@*﻿@using PagedList.Mvc;*@
+@*@model PagedList.IPagedList<Web.Models.Viaje>*@
 @model List<Web.Models.Viaje>
 @{
     Layout = "~/Views/shared/_Nav.cshtml";
@@ -27,7 +27,7 @@
                     <div>
                         <!-- cantidad disp -->
                         <center>
-                            <label for="">(@*@Model.TotalItemCount*@@Model.Count())</label> viajes disponibles de <label for="">(salida)</label> a <label for="">(destino)</label>
+                            <label for="">(@*@Model.TotalItemCount*@@Model.Count())</label> viajes disponibles 
                         </center>
                     </div>
 
@@ -67,54 +67,59 @@
                     <br />
                     <br />
                     <br />
-                    <div class="col-md-12" >
-                        <div class="grid_4 widget-shadow">
-                            <article class="row">
-                                <br />
-                                <!--empiezan los registros-->
-                                @foreach (var item in Model)
-                                {
-                                    <div class="col-md-2">
-                                        <center>
-                                            <div class="col-md-2" style="width:100%;">
-                                                <img src="~/FrontEnd/img/no-foto.jpg" alt="" style="vertical-align: middle; border: 4px; border-radius: 63%; width:40%;">
-                                                <br />
-                                                <label style="width:49%; float:left; text-align: right; ">@item.ApplicationUser.Nombres</label>
-                                                <label for="" style="width:49%;text-align: left; float:right">@item.ApplicationUser.Apellidos</label>                                                
-                                            </div>
-                                            
-                                        </center>
-                                    </div>
-
-                                    <div class="col-md-10">
-                                        <div class="col-md-9">
-
-                                            <h3><label for="">@item.FechaSalida</label> a las <label for="">@item.HoraSalida</label> hrs.</h3>
-                                            <div>
-                                                <span><i class="fa fa-map-marker" style="color:green"></i> Descripción de origen: @item.PuntoPartida</span>
-
-                                                <br />
-                                                <span><i class="fa fa-map-marker" style="color:red"></i> Descripción de destino: @item.PuntoDestino</span>
-                                            </div>
-                                            <hr />
-                                        </div>
-                                        <div class="col-md-3" style=" height:100%">
-                                            <center style="margin-top:-15px">
-                                                <h2><span class="fa fa-quora"></span> <label for="">@item.Tarifa</label></h2>
-                                                <h4>Por asiento</h4>
-                                                <br />
-                                                <strong> @item.NumAsientos </strong> <span> asientos disponibles</span>
+                    
+                       
+                            <!--empiezan los registros-->
+                            @foreach (var item in Model)
+                            {
+                                <div class="  grid_4 widget-shadow" style="height: 120px;">
+                                    <article class="row" >
+                                        <div class="col-md-2">
+                                            <center>
+                                                <div class="col-md-2" style="width:100%; height: 80%; ">
+                                                    <img src="~/FrontEnd/img/no-foto.jpg" alt="" style="vertical-align: middle; border: 4px; border-radius: 63%;  height:80%;">
+                                                </div>
+                                                <div style=" width:100%; height: 100%; ">
+                                                    <label style="width:49%; float:left; margin-top:-10px; text-align: right; ">@item.ApplicationUser.Nombres</label>
+                                                    <label for="" style="width:49%;text-align: left; margin-top:-10px; float:right">@item.ApplicationUser.Apellidos</label>
+                                                    @*<label># años></label>*@
+                                                </div>
                                             </center>
                                         </div>
-                                    </div>
-                        <!--terminan los registros-->
-                                }
 
-                            </article>
+                                        <div class="col-md-10" style="height: 120px;">
+                                            <div class="col-md-7">
 
-                        </div>
-                        
-                    </div>   
+                                                <h3><label for="">@item.FechaSalida</label> a las <label for="">@item.HoraSalida</label> hrs.</h3>
+                                                <div>
+                                                    <span><i class="fa fa-map-marker" style="color:green"></i> Descripción de origen: @item.PuntoPartida</span>
+
+                                                    <br />
+                                                    <span><i class="fa fa-map-marker" style="color:red"></i> Descripción de destino: @item.PuntoDestino</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3" style=" height:100%">
+                                                <center>
+                                                    <h2><span class="fa fa-quora"></span> <label for="">@item.Tarifa</label></h2>
+                                                    <h4>Por asiento</h4>
+                                                    <br />
+                                                    <strong> @item.NumAsientos </strong> <span> asientos disponibles</span>
+                                                </center>
+                                            </div>
+                                            <div class="col-md-2" style=" height:100%">
+                                                <center>
+                                                   <br/> 
+                                                    <a href="~/Home/Reserva"><button class="btn btn-info btn-lg" @*data-toggle="modal" data-target="#iniciosesion"*@>Reserva</button></a>
+
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                    <!--terminan los registros-->
+                                    }
+
+                                
 
                     @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
                     @Html.PagedListPager(Model, page => Url.Action("BuscarViajes",new { page = page }),PagedListRenderOptions.PageNumbersOnly)*@
@@ -139,3 +144,4 @@
     </div>
 </body>
 </html>
+
