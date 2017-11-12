@@ -47,7 +47,7 @@ namespace Web.Controllers
         
 
         [HttpPost]
-        public ActionResult BuscarViajes(BuscarViaje model/*, int? page*/)
+        public ActionResult BuscarViajes(BuscarViaje model, int? page)
         {
             
 
@@ -62,14 +62,22 @@ namespace Web.Controllers
             BuscarViaje viewModel = new BuscarViaje();
             List<Viaje> listaViajes = viewModel.listaViajesBuscados(model);
 
-            //int pageSize = 2;
-            //int pageNumber = (page ?? 1);
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
 
             //PagedList<Viaje> modelPaginado = new PagedList<Viaje>(listaViajes, pageNumber, pageSize);
-
-            //return View("BusquedaViajes", listaViajes/*.ToPagedList(pageNumber,pageSize)*/);
-            return View("BusquedaViajes",listaViajes);
+            
+            return View("BusquedaViajes", listaViajes/*.ToPagedList(pageNumber,pageSize)*/);
         }
-       
+
+        [HttpGet]
+        public ActionResult Reserva()
+        {
+
+            
+            //PagedList<Viaje> modelPaginado = new PagedList<Viaje>(listaViajes, pageNumber, pageSize);
+
+            return View();
+        }
     }
 }
