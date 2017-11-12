@@ -73,10 +73,6 @@ namespace Web.Controllers
         [HttpGet]
         public ActionResult Reserva()
         {
-
-            
-            //PagedList<Viaje> modelPaginado = new PagedList<Viaje>(listaViajes, pageNumber, pageSize);
-
             return View();
         }
     }
