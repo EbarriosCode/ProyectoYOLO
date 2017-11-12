@@ -1,0 +1,199 @@
+﻿@{
+    Layout = "~/Views/shared/_Nav.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Reservas</title>
+</head>
+<body>
+    <div>
+        <h1>Reservas</h1>
+    </div>
+
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-info">
+                    <div class="panel-heading text-center">Detalles del viaje</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2"> Salida:</div>
+                                <div class="col-md-10"><i class="fa fa-map-marker " style="color:limegreen"></i> <label>Guatemala</label></div>
+                                <div class="col-md-2"> Destino:</div>
+                                <div class="col-md-10"><i class="fa fa-map-marker " style="color:red"></i> <label>Retalhuleu</label></div>
+                                <div class="col-md-2"> Fecha:</div>
+                                <div class="col-md-10"><i class="fa fa-calendar-o  "></i> <label>Lunes 25 de septiembre</label></div>
+                                <br />
+                                <div class="col-md-2"> Hora:</div>
+                                <div class="col-md-10"><i class="fa fa-clock-o"></i>  <label>00:00</label> hrs.</div>
+                                <br />
+                                <div class="col-md-2"> Detalles:</div>
+                                <div class="col-md-3"><i class="fa fa-clock-o"></i> <label>Salida puntual</label></div>
+                                <div class="col-md-3"><i class="fa fa-suitcase "></i> <label>Mediano</label></div>
+                                <div class="col-md-4"><i class="material-icons" style=" font-size: 18px">call_split</i> <label>Máximo 15 min. de desvío</label><br /></div>
+                                <div class="col-md-12" style="height:15px"></div>
+                            </div>
+
+                            <div class="col-md-12 panel panel-info" style="background:#eff8fd">
+
+                                <div class="col-md-3 ">
+                                    <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:40%; float: right ">
+                                </div>
+                                <div class="col-md-6">
+                                    <p style="height:10px"></p>
+                                    <label><h4>Nombre </h4></label>
+                                    <label> <h4>Apellido </h4> </label>
+                                    <p><h5>El conductor no ha añadido detalles acerca del viaje</h5></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p style="height:15px"></p>
+                                    <a href="#" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i> Contactar al conductor</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </br>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading text-center">Itinerario y compañeros de viaje</div>
+                    <div class="table-responsive bs-example widget-shadow " style="overflow-x:auto;">
+                        <!-- <h4>Responsive Table:</h4> -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><center>Ciudades</center></th>
+                                    <th>
+                                        <!-- Steering Wheel icon by Icons8 -->
+                                        <center>
+                                            <img class="icon icons8-Steering-Wheel" width="55" height="55" src="data:image/png;base64,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">
+                                        </center>
+                                    </th>
+                                    <th><center><i class="material-icons" style=" font-size: 55px; color:#727272">airline_seat_recline_extra</i></center></th>
+                                    <th><center><i class="material-icons" style=" font-size: 55px; color:#727272">airline_seat_recline_extra</i></center></th>
+                                    <th><center><i class="material-icons" style=" font-size: 55px; color:#727272">airline_seat_recline_extra</i></center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span><i class="fa fa-map-marker" style="color:green"></i> Guatemala(salida)</span>
+                                        <br />
+                                        <p>00:00 hrs (hora de salida)</p>
+                                        <br />
+                                        <span><i class="fa fa-map-marker" style="color:red"></i> Retalhuleu(llegada)</span>
+                                        <p>00:00 hrs (hora estimada de llegada)</p>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:40%; height: 50%;">
+                                            <br />
+                                            <label><h5><strong>Nombre </strong> </h5></label> <label><h5><strong>apellido</strong> </h5></label>
+                                            <p style="height:1px"> </p>
+                                            <label><h5># años</h5></label>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:40%; height: 50%;">
+                                            <br />
+                                            <label><h5><strong>Nombre </strong> </h5></label> <label><h5><strong>apellido</strong> </h5></label>
+                                            <p style="height:1px"> </p>
+                                            <label><h5># años</h5></label>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:40%; height: 50%;">
+                                            <br />
+                                            <label><h5><strong>Nombre </strong> </h5></label> <label><h5><strong>apellido</strong> </h5></label>
+                                            <p style="height:1px"> </p>
+                                            <label><h5># años</h5></label>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:40%; height: 50%;">
+                                            <br />
+                                            <label><h5><strong>Nombre </strong> </h5></label> <label><h5><strong>apellido</strong> </h5></label>
+                                            <p style="height:1px"> </p>
+                                            <label><h5># años</h5></label>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="blank-page widget-shadow scroll col-md-4"> -->
+            <div class="blank-page widget-shadow scroll col-md-2" id="style-2 div1">
+                <center>
+                    <h2><span class="fa fa-quora">.</span> <label for="">0.00</label></h2>
+                    <h5>por asiento</h5>
+                </center>
+            </div>
+            <div class="blank-page widget-shadow scroll col-md-2" id="style-2 div1">
+                <center>
+                    <h2> <label for="">#</label><i class="material-icons" style=" font-size: 27px;">airline_seat_recline_extra</i></h2>
+                    <h5> asientos disponibles</h5>
+                </center>
+            </div>
+            <div class="blank-page widget-shadow scroll col-md-4" id="style-2 div1">
+                <center>
+
+                    <h5> Pasajeros en este viaje </h5>
+                    <div class="row">
+
+                        <div class="col-md-4" >
+                            <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:70%; ">
+                        </div>
+                        <div class="col-md-4">
+                            <h2> <i class="fa fa-circle-thin fa-2x" style="color:#727272" aria-hidden="true"></i></h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h2> <i class="fa fa-circle-thin fa-2x" style="color:#727272" aria-hidden="true"></i></h2>
+                        </div>
+
+                    </div>
+                </center>
+            </div>
+
+            <div class="blank-page widget-shadow scroll col-md-4" style="background:#f5f5f5">
+                <div class="form-group">
+                    <center> <label for="">Realiza tu reserva</label></center>
+                    <br />
+                    <select class="form-control">
+                        <option selected="">1 asiento</option>
+                        <option>2 asientos</option>
+                        <option>3 asientos</option>
+                    </select>
+                    <br />
+                    <input type="checkbox" class="col-md-1">
+                    <label class="col-md-11" style="text-align:justify">Acepto los <a href="">"Términos y política de privacidad"</a> y declaro estar en posesión de una licencia de conducir vigente. </label>
+
+                    <div class="col-md-12">
+                        <br />
+                        <center>
+                            <button class="btn btn-primary btn-lg" data-toggle="modal"><span><i class="fa fa-share-square-o" aria-hidden="true"></i></span> Enviar Solicitud de Reserva</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- </div> -->
+
+        </div>
+
+    </div>
+</body>
+</html>
