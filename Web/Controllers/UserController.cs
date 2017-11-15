@@ -84,6 +84,7 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Viajes(Viaje model)
         {
+
             if (ModelState.IsValid)
             {
                 ViajeViewModel ViewModel = new ViajeViewModel();
@@ -94,7 +95,9 @@ namespace Web.Controllers
                 ViewModel.FechaSalida = model.FechaSalida;
                 ViewModel.HoraSalida = model.HoraSalida;
                 ViewModel.FechaRegreso = model.FechaRegreso;
-                ViewModel.HoraRegreso = model.HoraRegreso;                
+                ViewModel.HoraRegreso = model.HoraRegreso;
+                ViewModel.Distancia = model.Distancia;
+                ViewModel.Duracion = model.Duracion;
 
                 ViewBag.TipoVehiculoList = new SelectList(db.TipoVehiculo.ToList(), "TipoVehiculoId", "NombreTipoVehiculo");
                 return View("ViajesContinuacion", ViewModel);
@@ -123,6 +126,8 @@ namespace Web.Controllers
                 viaje.HoraSalida = ViewModel.HoraSalida;
                 viaje.FechaRegreso = ViewModel.FechaRegreso;
                 viaje.HoraRegreso = ViewModel.HoraRegreso;
+                viaje.Distancia = ViewModel.Distancia;
+                viaje.Duracion = ViewModel.Duracion;
                 viaje.Tarifa = ViewModel.Tarifa;
                 viaje.NumAsientos = ViewModel.NumAsientos;
                 viaje.DetallesViaje = ViewModel.DetallesViaje;
@@ -130,7 +135,7 @@ namespace Web.Controllers
 
                 db.Viajes.Add(viaje);
                 db.SaveChanges();
-                return RedirectToAction("Perfil");
+                return RedirectToAction("MisViajes");
                 //return Json(ViewModel, JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("Perfil");
             }

@@ -1,4 +1,7 @@
-﻿google.maps.event.addDomListener(window, "load", () => {
+﻿var place1LatLong;
+var place2LatLong;
+
+google.maps.event.addDomListener(window, "load", () => {
     const user = new UserLocation(() => {
         const mapOptions = {
             zoom: 17,
@@ -37,13 +40,17 @@
         google.maps.event.addListener(autocomplete1, "place_changed", () => {
             //console.log("Cambiamos de lugar");
             const place = autocomplete1.getPlace();
+            place1LatLong = place.geometry.location;
+            //console.log("DATOS PLACE 1 LAT" + place1LatLong.lat()+" Y LONG "+place1LatLong.lng());
+            
+            //localStorage.setItem("puntoA", JSON.stringify(place1LatLong));
             //Centrar el mapa en el lugar escogido en el input-search
             if(place.geometry.viewport)
-            {
+            {                
                 map.fitBounds(place.geometry.viewport);
             }
             else
-            {
+            {                
                 map.setCenter(place.geometry.location);
                 map.zoom(17);
             }
@@ -54,14 +61,21 @@
             });
             marker1.setVisible(true);
 
-            calcularDistancia(place, user);
+            //calcularDistancia(place, user);
         });
 
         //Evento para obtener e lugar del input-search2
         google.maps.event.addListener(autocomplete2, "place_changed", () => {
             //console.log("Cambiamos de lugar");
+            search_input_2.focus();
+
             const place2 = autocomplete2.getPlace();
             //Centrar el mapa en el lugar escogido en el input-search
+            place2LatLong = place2.geometry.location;
+            
+
+            //localStorage.setItem("puntoB", JSON.stringify(place2LatLong));
+
             if (place2.geometry.viewport) {
                 map.fitBounds(place2.geometry.viewport);
             }
@@ -76,40 +90,79 @@
             });
             marker2.setVisible(true);
 
-            calcularDistancia(place2, user);
+            //calcularDistancia(place2, user);
+            distanciaTiempo(place1LatLong.lat(), place1LatLong.lng(), place2LatLong.lat(), place2LatLong.lng());
             trazarRuta(map);
         });
 
         
     });
-
+    
 });
 
-function calcularDistancia(place,origen)
-{
-    var origin = new google.maps.LatLng(origen.latitude, origen.longitude);
-    // objeto para calcular la distancia
-    var service = new google.maps.DistanceMatrixService();
-    var configDistance = {
-        origins: [origin],
-        destinations: [place.geometry.location],
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    service.getDistanceMatrix(configDistance, (respuesta,status) => {
-        //Esta funcion se ejecuta cuando el servicio de distancia de Maps no responde
-        const info = respuesta.rows[0].elements[0];
-        //console.log(info);
-        const distancia = info.distance.text;
-        const duracion = info.duration.text;
 
-        console.log("Distancia: "+distancia);
-        console.log("Duracion: "+duracion);
-        document.getElementById('info').innerHTML = `
-            Estás a ${distancia} y tardas ${duracion} en llegar
-        `;
-        
-    });    
+function distanciaTiempo(origen_lat, origen_lng, destino_lat, destino_lng) {
+    //console.log("LAT ORIGEN: " + origen_lat + " LONG ORIGEN: " + origen_lng);
+    //console.log("LAT DESTINO: " + destino_lat + " LONG DESTINO: " + destino_lng);
+
+    var puntoA = new google.maps.LatLng(origen_lat, origen_lng);
+    var puntoB = new google.maps.LatLng(destino_lat, destino_lng);
+    var service = new google.maps.DistanceMatrixService();
+
+    service.getDistanceMatrix({
+        origins: [puntoA],
+        destinations: [puntoB],
+        travelMode: google.maps.TravelMode.DRIVING
+    }, function (respuesta, status) {
+        var info = respuesta.rows[0].elements[0];
+        //console.log("INFO DOS PUNTOS FINAL: " + info);
+
+        var distancia = info.distance.text;
+        var duracion = info.duration.text;
+
+        //console.log("DISTANCIA: " + distancia + " DURACION: " + duracion);
+
+        $("#txtDistancia").val(distancia);
+        $("#txtDuracion").val(duracion);
+        //alert(distancia +" - "+ duracion);
+    });
 }
+
+//$("#search-place_2").blur(function () {
+//    $("#search-place_2").focus();
+//    //distanciaTiempo(place1LatLong.lat(), place1LatLong.lng(), place2LatLong.lat(), place2LatLong.lng());
+//});
+
+//$("#search-place_2").blur(function () {
+//    //console.log("LA DISTANCIA Y EL TIEMPO QUE SI SON: ");
+//    distanciaTiempo(place1LatLong.lat(), place1LatLong.lng(), place2LatLong.lat(), place2LatLong.lng());
+//    //alert("funcion");
+//});
+//function calcularDistancia(place,origen)
+//{
+//    var origin = new google.maps.LatLng(origen.latitude, origen.longitude);
+//    // objeto para calcular la distancia
+//    var service = new google.maps.DistanceMatrixService();
+//    var configDistance = {
+//        origins: [origin],
+//        destinations: [place.geometry.location],
+//        travelMode: google.maps.TravelMode.DRIVING
+//    };
+//    service.getDistanceMatrix(configDistance, (respuesta,status) => {
+//        //Esta funcion se ejecuta cuando el servicio de distancia de Maps no responde
+//        const info = respuesta.rows[0].elements[0];
+//        //console.log(info);
+//        const distancia = info.distance.text;
+//        const duracion = info.duration.text;
+
+//        //console.log("Distancia: "+distancia);
+//        //console.log("Duracion: "+duracion);
+//        document.getElementById('info').innerHTML = `
+//            Estás a ${distancia} y tardas ${duracion} en llegar
+//        `;
+        
+//    });    
+//}
 
 function trazarRuta(map)
 {
@@ -137,7 +190,7 @@ function trazarRuta(map)
 
     function fnRutear(resultados, status) {
         //mostrar la linea entre A y B
-        console.log(resultados);
+        //console.log(resultados);
         if (status == 'OK') {
             dr.setDirections(resultados);
             resultados = "";

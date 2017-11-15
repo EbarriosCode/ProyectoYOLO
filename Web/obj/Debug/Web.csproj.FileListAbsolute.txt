@@ -125,3 +125,4 @@ C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\bin\PagedL
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\bin\PagedList.Mvc.dll
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\bin\PagedList.xml
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\bin\PagedList.Mvc.xml
+C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.Migrations.Add_Distancia_Duracion_ModelViaje.resources

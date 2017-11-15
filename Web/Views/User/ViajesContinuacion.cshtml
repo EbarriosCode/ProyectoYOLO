@@ -78,23 +78,23 @@
                     <div class="form-group">
                         <div class="col-md-4 control-label">Distancia:</div>
                         <div class="col-md-7">
-                            <div class="col-md-7 control-label">--- km</div>
+                            <div class="col-md-7 control-label">@Model.Distancia</div>
                         </div>
                     </div>
                     <br />
                     <div class="form-group">
                         <div class="col-md-4 control-label">Tiempo aproximado:</div>
                         <div class="col-md-7">
-                            <div class="col-md-7 control-label">-- h -- min</div>
+                            <div class="col-md-7 control-label">@Model.Duracion</div>
                         </div>
                     </div>
                     <br />
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <div class="col-md-4 control-label">Emisiones de CO<sub>2</sub>:</div>
                         <div class="col-md-7">
                             <div class="col-md-7 control-label">--- Kg</div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -128,6 +128,9 @@
 
             @Html.HiddenFor(m => m.HoraRegreso, new { Value = Model.HoraRegreso })
             @Html.ValidationMessageFor(model => model.HoraRegreso, "", new { @class = "label label-danger" })
+
+            @Html.HiddenFor(m => m.Distancia, new { Value = Model.Distancia })
+            @Html.HiddenFor(m => m.Duracion, new { Value = Model.Duracion })
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-info">
                 <div class="panel-heading text-center">Aportación por pasajero</div>

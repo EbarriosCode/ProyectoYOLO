@@ -44,6 +44,12 @@ namespace Web.Models.ViewModels
         [DataType(DataType.Time)]
         public string HoraRegreso { get; set; }
 
+        [Display(Name = "Distancia")]
+        public string Distancia { get; set; }
+
+        [Display(Name = "Duración")]
+        public string Duracion { get; set; }
+
         [Display(Name = "Tarifa Pasajeros")]
         [Required(ErrorMessage = "El campo {0} es requerido")]    
         public double Tarifa { get; set; }

@@ -9,13 +9,12 @@
     }
 </style>
 
-
 <div id="page-wrapper">
     <div class="row">
         <div class="col-md-4">            
             <div id="map" style="height:400px; width:600px;"></div>
 
-            <div id="info"></div>
+            <div id="info"></div>            
         </div>
         @*<div id="contenedor-info" class="col-md-4">
             <input type="text" class="form-control" id="search-place_1" placeholder="Buscar Ubicación de Partida" />
@@ -67,6 +66,10 @@
                                 @Html.TextBoxFor(m => m.PuntoDestino, new { @class = "form-control", @id = "search-place_2", @placeholder = "Buscar Ubicación Destino" })
                                 @Html.ValidationMessageFor(m => m.PuntoDestino, "", new { @class = "label label-danger" })
                             </div>
+
+                            @*Datos de distancia y duración del viaje*@
+                            @Html.HiddenFor(m => m.Distancia,new { @id="txtDistancia"})
+                            @Html.HiddenFor(m => m.Duracion, new { @id = "txtDuracion" })
                         </div>
                     </div>
                     <!-- Fecha y hora ida y vuelta -->
@@ -103,10 +106,10 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" @*id="continuar-viaje"*@ class="btn btn-primary" style="float:right">  <span>→</span> Continuar</button>
+                    <button type="submit" id="continuar-viaje" class="btn btn-primary" style="float:right">  <span>→</span> Continuar</button>
                     }            
         </div>
-        <div class="col-md-12" id="info">Info</div>
+        @*<div class="col-md-12" id="info">Info</div>*@
         @*<div class="col-md-12" id="resultado">Aqui va el resultado</div>*@
     </div>
 </div>
@@ -114,50 +117,6 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kLTSuOOA30wach-OwlymwZDP53jo3ok&libraries=places"></script>
 <script src="~/Scripts/ScriptMaps/user_location.js"></script>
 <script type="text/javascript" src="~/Scripts/ScriptMaps/main.js"></script>
-
-@*<script>
-    var origin = $("#search-place_1").val();//new google.maps.LatLng(55.930385, -3.118425);
-    var destination = $("#search-place_2").val();//new google.maps.LatLng(50.087692, 14.421150);
-
-    //var TransitOptions = {
-    //    arrivalTime: Date,
-    //    departureTime: Date        
-    //};
-
-    //var DrivingOptions = {
-    //    departureTime: Date,
-    //    trafficModel: TrafficModel
-    //};
-
-    var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-        {
-            origins: [origin],
-            destinations: [destination],
-            travelMode: 'DRIVING'
-            
-        }, callback);
-
-    function callback(response, status) {
-        if (status == 'OK') {
-            var origins = response.originAddresses;
-            var destinations = response.destinationAddresses;
-
-            for (var i = 0; i < origins.length; i++) {
-                var results = response.rows[i].elements;
-                for (var j = 0; j < results.length; j++) {
-                    var element = results[j];
-                    var distance = element.distance.text;
-                    var duration = element.duration.text;
-                    var from = origins[i];
-                    var to = destinations[j];
-
-                    //console.log("DISTANCIA: "+distance);
-                }
-            }
-        }
-    }
-</script>*@
 <script>
     $("#checkarIda-Vuelta").click(() => {
         if ($("#checkarIda-Vuelta").is(":checked") == true) {
