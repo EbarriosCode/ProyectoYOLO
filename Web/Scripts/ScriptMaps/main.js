@@ -55,13 +55,13 @@ google.maps.event.addDomListener(window, "load", () => {
                 map.zoom(17);
             }
 
-            marker1.setPlace({
-                placeId: place.place_id,
-                location: place.geometry.location
-            });
-            marker1.setVisible(true);
+            //marker1.setPlace({
+            //    placeId: place.place_id,
+            //    location: place.geometry.location
+            //});
+            //marker1.setVisible(true);
 
-            //calcularDistancia(place, user);
+            
         });
 
         //Evento para obtener e lugar del input-search2
@@ -84,13 +84,13 @@ google.maps.event.addDomListener(window, "load", () => {
                 map.zoom(17);
             }
 
-            marker2.setPlace({
-                placeId: place2.place_id,
-                location: place2.geometry.location
-            });
-            marker2.setVisible(true);
+            //marker2.setPlace({
+            //    placeId: place2.place_id,
+            //    location: place2.geometry.location
+            //});
+            //marker2.setVisible(true);
 
-            //calcularDistancia(place2, user);
+            
             distanciaTiempo(place1LatLong.lat(), place1LatLong.lng(), place2LatLong.lat(), place2LatLong.lng());
             trazarRuta(map);
         });
@@ -168,8 +168,8 @@ function trazarRuta(map)
 {
     //como trazar una ruta
     var objConfigDR = {
-        map: map,
-        suppressMarkers: true
+        map: map
+        //suppressMarkers: true
     };
     var origen = document.getElementById('search-place_1').value;//new google.maps.LatLng(lat, long);
     var destino = document.getElementById('search-place_2').value;

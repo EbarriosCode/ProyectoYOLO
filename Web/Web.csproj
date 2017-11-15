@@ -240,6 +240,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModeloAjax.cs" />
+    <Compile Include="Models\Reserva.cs" />
     <Compile Include="Models\Sexo.cs" />
     <Compile Include="Models\TipoVehiculo.cs" />
     <Compile Include="Models\Viaje.cs" />
