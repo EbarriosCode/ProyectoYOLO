@@ -76,12 +76,18 @@ namespace Web.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Reserva(Reserva model)
         {
             return View();
         }
 
+        
+        public ActionResult Busqueda()
+        {
+            return View();
+        }
 
     }
 }
