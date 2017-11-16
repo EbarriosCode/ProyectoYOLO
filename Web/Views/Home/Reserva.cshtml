@@ -1,7 +1,10 @@
-﻿@{
+﻿@model Web.Models.Viaje
+@{
     Layout = "~/Views/shared/_Nav.cshtml";
 }
-
+@{ 
+    int asientos = Convert.ToInt32(Model.NumAsientos);
+}
 <!DOCTYPE html>
 
 <html>
@@ -24,14 +27,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-2"> Salida:</div>
-                                <div class="col-md-10"><i class="fa fa-map-marker " style="color:limegreen"></i> <label>Guatemala</label></div>
+                                <div class="col-md-10"><i class="fa fa-map-marker " style="color:limegreen"></i> <label>@Model.PuntoPartida</label></div>
                                 <div class="col-md-2"> Destino:</div>
-                                <div class="col-md-10"><i class="fa fa-map-marker " style="color:red"></i> <label>Retalhuleu</label></div>
+                                <div class="col-md-10"><i class="fa fa-map-marker " style="color:red"></i> <label>@Model.PuntoDestino</label></div>
                                 <div class="col-md-2"> Fecha:</div>
-                                <div class="col-md-10"><i class="fa fa-calendar-o  "></i> <label>Lunes 25 de septiembre</label></div>
+                                <div class="col-md-10"><i class="fa fa-calendar-o  "></i> <label>@Model.FechaSalida</label></div>
                                 <br />
                                 <div class="col-md-2"> Hora:</div>
-                                <div class="col-md-10"><i class="fa fa-clock-o"></i>  <label>00:00</label> hrs.</div>
+                                <div class="col-md-10"><i class="fa fa-clock-o"></i>  <label>@Model.HoraSalida</label> hrs.</div>
                                 <br />
                                 <div class="col-md-2"> Detalles:</div>
                                 <div class="col-md-3"><i class="fa fa-clock-o"></i> <label>Salida puntual</label></div>
@@ -47,9 +50,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <p style="height:10px"></p>
-                                    <label><h4>Nombre </h4></label>
-                                    <label> <h4>Apellido </h4> </label>
-                                    <p><h5>El conductor no ha añadido detalles acerca del viaje</h5></p>
+                                    <label><h4>@Model.ApplicationUser.Nombres </h4></label>
+                                    <label> <h4>@Model.ApplicationUser.Apellidos </h4> </label>
+                                    <p><h5>@Model.DetallesViaje</h5></p>
                                 </div>
                                 <div class="col-md-3">
                                     <p style="height:15px"></p>
@@ -84,20 +87,20 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <span><i class="fa fa-map-marker" style="color:green"></i> Guatemala(salida)</span>
+                                        <span><i class="fa fa-map-marker" style="color:green"></i> @Model.PuntoPartida</span>
                                         <br />
-                                        <p>00:00 hrs (hora de salida)</p>
+                                        <p>@Model.HoraSalida hrs (hora de salida)</p>
                                         <br />
-                                        <span><i class="fa fa-map-marker" style="color:red"></i> Retalhuleu(llegada)</span>
-                                        <p>00:00 hrs (hora estimada de llegada)</p>
+                                        <span><i class="fa fa-map-marker" style="color:red"></i> @Model.PuntoDestino (llegada)</span>
+                                        @*<p>00:00 hrs (hora estimada de llegada)</p>*@
                                     </td>
                                     <td>
                                         <center>
                                             <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:40%; height: 50%;">
                                             <br />
-                                            <label><h5><strong>Nombre </strong> </h5></label> <label><h5><strong>apellido</strong> </h5></label>
+                                            <label><h5><strong>@Model.ApplicationUser.Nombres </strong> </h5></label> <label><h5><strong>@Model.ApplicationUser.Apellidos</strong> </h5></label>
                                             <p style="height:1px"> </p>
-                                            <label><h5># años</h5></label>
+                                            <label><h5>@Model.ApplicationUser.Edad años</h5></label>
                                         </center>
                                     </td>
                                     <td>
@@ -137,13 +140,13 @@
             <!-- <div class="blank-page widget-shadow scroll col-md-4"> -->
             <div class="blank-page widget-shadow scroll col-md-2" id="style-2 div1">
                 <center>
-                    <h2><span class="fa fa-quora">.</span> <label for="">0.00</label></h2>
+                    <h2><span class="fa fa-quora">.</span> <label for="">@Model.Tarifa</label></h2>
                     <h5>por asiento</h5>
                 </center>
             </div>
             <div class="blank-page widget-shadow scroll col-md-2" id="style-2 div1">
                 <center>
-                    <h2> <label for="">#</label><i class="material-icons" style=" font-size: 27px;">airline_seat_recline_extra</i></h2>
+                    <h2> <label for=""> @Model.NumAsientos </label><i class="material-icons" style=" font-size: 27px;">airline_seat_recline_extra</i></h2>
                     <h5> asientos disponibles</h5>
                 </center>
             </div>
@@ -153,7 +156,7 @@
                     <h5> Pasajeros en este viaje </h5>
                     <div class="row">
 
-                        <div class="col-md-4" >
+                        <div class="col-md-4">
                             <img src="~/FrontEnd/img/img1.png" alt="" style="vertical-align: middle; border: 4px  border-radius: 63%; width:70%; ">
                         </div>
                         <div class="col-md-4">
@@ -167,33 +170,72 @@
                 </center>
             </div>
 
+            @*@using (Html.BeginForm("Reserva", "Home", FormMethod.Post, new { role = "form" , @id = "form-reserva"}))
+            {*@
+            @using (Ajax.BeginForm("Reserva", "Home", null,
+                                                new AjaxOptions
+                                                {
+                                                    HttpMethod = "Post",
+                                                    //UpdateTargetId = "divAjax",
+                                                    OnSuccess = "Success",
+                                                    OnFailure = "Fail",
+                                                    //LoadingElementId = "image_loading"
+                                                }, new { @class = "form-horizontal", role = "form" }))
+            {
             <div class="blank-page widget-shadow scroll col-md-4" style="background:#f5f5f5">
                 <div class="form-group">
                     <center> <label for="">Realiza tu reserva</label></center>
                     <br />
-                    <select class="form-control">
-                        <option selected="">1 asiento</option>
-                        <option>2 asientos</option>
-                        <option>3 asientos</option>
+                    <input type="hidden" name="ViajeId" value="@Model.ViajeId" />
+                    <input type="hidden" name="usuarioViaja" value="@Session["ApplicationUserId"]" />
+                    <select class="form-control" name="asientos">
+                        @for(int i=1; i<=asientos; i++)
+                        {
+                            <option value="@i">
+                                @i asientos
+                            </option>
+                        }
                     </select>
                     <br />
-                    <input type="checkbox" class="col-md-1">
-                    <label class="col-md-11" style="text-align:justify">Acepto los <a href="">"Términos y política de privacidad"</a> y declaro estar en posesión de una licencia de conducir vigente. </label>
+                    @*Esto no deberia ir porque esto es para un pasajero*@
+                    @*<input type="checkbox" required class="col-md-1">
+                    <label class="col-md-11" style="text-align:justify">Acepto los <a href="">"Términos y política de privacidad"</a> y declaro estar en posesión de una licencia de conducir vigente. </label>*@
 
                     <div class="col-md-12">
                         <br />
                         <center>
-                            <button class="btn btn-primary btn-lg" data-toggle="modal"><span><i class="fa fa-share-square-o" aria-hidden="true"></i></span> Enviar Solicitud de Reserva</button>
+                            <button type="submit" class="btn btn-primary btn-lg"><span><i class="fa fa-share-square-o" aria-hidden="true"></i></span> Enviar Solicitud de Reserva</button>
                         </center>
+                        <br />
+                        <div class="alert alert-success" style="display:none" id="alerta-success">
+                            <strong>Exito!</strong> Tu solicitud de reserva ha sido enviada!
+                        </div>
+                        <div class="alert alert-danger" style="display:none" id="alerta-fail">
+                            <strong>Alerta!</strong> No se envió tu solicitud
+                        </div>
                     </div>
                 </div>
             </div>
-
-
+            }
+            
+            
             <!-- </div> -->
 
         </div>
 
     </div>
+    <script>
+        function Success()
+        {
+            $("#alerta-success").show();
+        }
+
+        function Fail()
+        {
+            $("#alerta-fail").show();
+        }
+        
+    </script>
 </body>
 </html>
+

@@ -72,5 +72,8 @@ namespace Web.Models
         public int TipoVehiculoId { get; set; }
         //propiedad virtual para la relacion Viaje/TipoVehiculo
         public virtual TipoVehiculo TipoVehiculo { get; set; }
+
+        //Propiedad para la relacion de la tabla intermedia de muchos a muchos Viaje/Reserva
+        public virtual ICollection<ViajeReserva> ViajesReservas { get; set; }
     }
 }

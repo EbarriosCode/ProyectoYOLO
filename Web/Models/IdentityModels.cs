@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace Web.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaNacimiento { get; set; }
 
+        [NotMapped]
+        public int Edad { get { return DateTime.Now.Year - FechaNacimiento.Year; } }
+
         [Display(Name = "Biografía")]
         [DataType(DataType.MultilineText)]
         public string Biografia { get; set; }
@@ -40,6 +44,8 @@ namespace Web.Models
         //Propiedad Virtual para la Relación Viaje/Usuario
         public virtual ICollection<Viaje> Viajes { get; set; }
 
+        //Propiedad Virtual para la Relación Viaje/Reserva
+        public virtual ICollection<Reserva> Reservas { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -74,6 +80,8 @@ namespace Web.Models
 
         //public DbSet<ModeloAjax> ModeloAjax { get; set; }
         public DbSet<Viaje> Viajes { get; set; }
+        public DbSet<Reserva> Reservas { get; set; }
+        public DbSet<ViajeReserva> ViajesReservas { get; set; }
         public DbSet<TipoVehiculo> TipoVehiculo { get; set; }
         public DbSet<Sexo> Sexo { get; set; }
     }

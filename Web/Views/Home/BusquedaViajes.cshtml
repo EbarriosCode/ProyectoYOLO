@@ -110,8 +110,9 @@
                                             <div class="col-md-2" style=" height:100%">
                                                 <center>
                                                    <br/> 
-                                                    <a href="~/Home/Reserva"><button class="btn btn-info btn-lg" @*data-toggle="modal" data-target="#iniciosesion"*@>Reserva</button></a>
-
+                                                    @*<a href="~/Home/Reserva/@item.ViajeId"><button class="btn btn-info btn-lg">Reserva</button></a>*@
+                                                    <a href="@Url.Action("Reserva", "Home", new { ViajeId = @item.ViajeId }, null)" class="btn btn-info btn-lg">Reserva</a>
+                                                    @*@Html.ActionLink("Reserva","Reserva", "Home", new { ViajeId = @item.ViajeId }, null)*@
                                                 </center>
                                             </div>
                                         </div>

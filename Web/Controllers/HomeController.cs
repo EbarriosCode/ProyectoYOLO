@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using PagedList;
@@ -70,18 +72,71 @@ namespace Web.Controllers
             return View("BusquedaViajes", listaViajes/*.ToPagedList(pageNumber,pageSize)*/);
         }
 
+        //Debe estar logueado para acceder a este metodo
+        [Authorize]
         [HttpGet]
-        public ActionResult Reserva()
+        public ActionResult Reserva(int? ViajeId)
         {
-            return View();
+            Session["ApplicationUserId"] = User.Identity.GetUserId();
+            Console.Write("ID DEL USUARIO: "+Session["ApplicationUserId"]);
+
+            if (ViajeId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Viaje viaje = db.Viajes.Find(ViajeId);
+            if(viaje == null)
+            {
+                return HttpNotFound();
+            }
+
+            else
+            {
+                return View(viaje);
+            }            
         }
 
+        //Debe estar logueado para acceder a este metodo
+        [Authorize]
         [HttpPost]
-        public ActionResult Reserva(Reserva model)
+        public ActionResult Reserva(string ViajeId, string usuarioViaja, string asientos)
         {
+            //Console.WriteLine(" Usuario que viaja: " + usuarioViaja + " Numero de asientos"+ asientos); 
+            if (!string.IsNullOrEmpty(ViajeId) && !string.IsNullOrEmpty(usuarioViaja) && !string.IsNullOrEmpty(asientos))
+            {
+                int idViaje = Convert.ToInt32(ViajeId);
+                int numAsientos = Convert.ToInt32(asientos);
+
+                Reserva reserva = new Reserva()
+                {
+                    ApplicationUserId = usuarioViaja,
+                    NumAsientos = numAsientos,
+                    Aceptado = true
+                };
+                db.Reservas.Add(reserva);
+
+                ViajeReserva Viaje_Reserva = new ViajeReserva()
+                {
+                    ViajeId = idViaje,
+                    ReservaId = reserva.ReservaId
+                };
+                db.ViajesReservas.Add(Viaje_Reserva);
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
-
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

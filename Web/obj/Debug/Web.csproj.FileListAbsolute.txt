@@ -126,3 +126,4 @@ C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.csproj.GenerateResource.Cache
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.dll
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.Migrations.Reserva_RelationManyToMany_ViajeReserva.resources
