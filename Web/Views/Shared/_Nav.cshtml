@@ -139,9 +139,10 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
+                            @if(!Request.IsAuthenticated){
                             <a href="~/Account/Register"><button class="btn btn-info btn-lg" @*data-toggle="modal" data-target="#registro"*@>Registro</button></a>
                             <a href="~/Account/Login"><button class="btn btn-info btn-lg" @*data-toggle="modal" data-target="#iniciosesion"*@>Inicia Sesión</button></a>                            
-
+                            }
                         </ul>
 
                     </div>	<!-- collapse navbar-collapse -->
