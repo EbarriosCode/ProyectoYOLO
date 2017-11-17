@@ -28,6 +28,9 @@
     <!--webfonts-->
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <!--//webfonts-->
+    <!-- API MATERIAL ICONS GOOGLE -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <!--animate-->
     <link href="~/FrontEnd/UtilsPanel//css/animate.css" rel="stylesheet" type="text/css" media="all">
     <script src="~/FrontEnd/UtilsPanel/js/wow.min.js"></script>
@@ -39,10 +42,10 @@
     <script src="~/FrontEnd/UtilsPanel/js/Chart.js"></script>
     <!-- //chart -->
     <!--Calender-->
-    <link rel="stylesheet" href="~/FrontEnd/UtilsPanel/css/clndr.css" type="text/css" />
+    @*<link rel="stylesheet" href="~/FrontEnd/UtilsPanel/css/clndr.css" type="text/css" />*@
     <script src="~/FrontEnd/UtilsPanel/js/underscore-min.js" type="text/javascript"></script>
     <script src="~/FrontEnd/UtilsPanel/js/moment-2.2.1.js" type="text/javascript"></script>
-    <script src="~/FrontEnd/UtilsPanel/js/clndr.js" type="text/javascript"></script>
+    @*<script src="~/FrontEnd/UtilsPanel/js/clndr.js" type="text/javascript"></script>*@
     <script src="~/FrontEnd/UtilsPanel/js/site.js" type="text/javascript"></script>
     <!--End Calender-->
     <!-- Metis Menu -->
@@ -78,7 +81,7 @@
                             @*<a href="~/User/Dinero"><i class="fa fa-money nav_icon"></i>Dinero</a>*@
                         </li>
                         <li>
-                            <a href="~/User/Index"><i class="fa fa-cog nav_icon"></i>Perfil</a>
+                            <a href="~/User/Configuracion"><i class="fa fa-cog nav_icon"></i>Configuración</a>
                         </li>
 
                     </ul>
@@ -95,7 +98,7 @@
                 <!--toggle button end-->
                 <!--logo -->
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="~/User/Perfil">
                         <h1>YOLO</h1>
                         <span>Panel</span>
                     </a>
@@ -321,7 +324,7 @@
                                                 <li> <a href="~/User/Viajes"><i class="fa fa-calendar"></i> Reservas</a> </li>
                                                 @*<li> <a href="#"><i class="fa fa-bullhorn"></i> alertas</a> </li>*@
                                                 @*<li> <a href="#"><i class="fa fa-money"></i> Dinero</a> </li>*@
-                                                <li> <a href="~/User/Index"><i class="fa fa-cog"></i> Perfil</a> </li>
+                                                <li> <a href="~/User/Configuracion"><i class="fa fa-cog"></i> Configuración</a> </li>
                                                 <li> <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                             </ul>
                                         </li>
