@@ -25,12 +25,12 @@ namespace Web.Controllers
 
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(ctx));
             var users2 = manager.Users.ToList(); */
-           
+
             return View();
         }
 
         public ActionResult Perfil()
-        {           
+        {
             // Contexto para recuperar el Usuario Logueado Actualmente
             var ctx = Request.GetOwinContext().Get<ApplicationDbContext>();
             string IdUser = User.Identity.GetUserId();
@@ -46,12 +46,12 @@ namespace Web.Controllers
 
             List<Viaje> misViajes = db.Viajes.
                                     Where(x => x.ApplicationUserId == IdUser).
-                                    OrderByDescending(x => x.ViajeId).                                    
+                                    OrderByDescending(x => x.ViajeId).
                                     ToList();
-            
+
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            
+
             return View(misViajes.ToPagedList(pageNumber, pageSize));
         }
 
@@ -60,7 +60,7 @@ namespace Web.Controllers
         {
             Session["ApplicationUserId"] = User.Identity.GetUserId();
             //ViewBag.UserId = Session["ApplicationUserId"].ToString();
-            
+
             return View();
         }
 
@@ -102,7 +102,7 @@ namespace Web.Controllers
                 ViewBag.TipoVehiculoList = new SelectList(db.TipoVehiculo.ToList(), "TipoVehiculoId", "NombreTipoVehiculo");
                 return View("ViajesContinuacion", ViewModel);
             }
-            return View(model);            
+            return View(model);
         }
 
         [HttpPost]
@@ -115,7 +115,7 @@ namespace Web.Controllers
             Viaje viaje = new Viaje();
 
             ViewModel.Fecha = DateTime.Now;
-            ViewModel.ToString();            
+            ViewModel.ToString();
             if (ModelState.IsValid)
             {
                 viaje.Fecha = ViewModel.Fecha;
@@ -139,7 +139,7 @@ namespace Web.Controllers
                 //return Json(ViewModel, JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("Perfil");
             }
-            return View("ViajesContinuacion",ViewModel);
+            return View("ViajesContinuacion", ViewModel);
             //return View("ViajesContinuacion", ViewModel);
         }
 
@@ -152,8 +152,8 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ModeloAjax(ModeloAjax model)
         {
-            if(!ModelState.IsValid)
-            {               
+            if (!ModelState.IsValid)
+            {
                 return View();
             }
 
@@ -165,6 +165,11 @@ namespace Web.Controllers
             return View(model);
         }
         public ActionResult Mapa()
+        {
+            return View();
+        }
+
+        public ActionResult Configuracion()
         {
             return View();
         }
