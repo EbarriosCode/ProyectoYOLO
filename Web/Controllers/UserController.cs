@@ -168,5 +168,10 @@ namespace Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Configuracion()
+        {
+            return View();
+        }
     }
 }
