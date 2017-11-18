@@ -47,6 +47,13 @@ namespace Web.Models
         //Propiedad Virtual para la Relación Viaje/Reserva
         public virtual ICollection<Reserva> Reservas { get; set; }
 
+        //Propiedad Virtual para la Relación Usuarios/Mensajes en el chat
+        [InverseProperty("ApplicationUserEnvia")]
+        public virtual ICollection<Chat> MensajesEnvia { get; set; }
+
+        [InverseProperty("ApplicationUserRecibe")]
+        public virtual ICollection<Chat> MensajesRecibe { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Tenga en cuenta que el valor de authenticationType debe coincidir con el definido en CookieAuthenticationOptions.AuthenticationType
@@ -76,6 +83,13 @@ namespace Web.Models
             modelBuilder.Entity<Viaje>().Property(p => p.FechaRegreso).IsOptional();
             modelBuilder.Entity<Viaje>().Property(p => p.HoraRegreso).IsOptional();
             modelBuilder.Entity<Viaje>().Property(p => p.DetallesViaje).IsOptional();
+
+
+            //Relación mensajesChat con ApplicationUser
+            //modelBuilder.Entity<Chat>()
+            //                            .Property(c => c.UsuarioEnvia)
+            //                            .IsRequired()
+         
         }
 
         //public DbSet<ModeloAjax> ModeloAjax { get; set; }
@@ -84,5 +98,6 @@ namespace Web.Models
         public DbSet<ViajeReserva> ViajesReservas { get; set; }
         public DbSet<TipoVehiculo> TipoVehiculo { get; set; }
         public DbSet<Sexo> Sexo { get; set; }
+        public DbSet<Chat> Mensajes { get; set; }
     }
 }

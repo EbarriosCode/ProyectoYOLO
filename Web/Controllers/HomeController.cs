@@ -64,8 +64,8 @@ namespace Web.Controllers
             BuscarViaje viewModel = new BuscarViaje();
             List<Viaje> listaViajes = viewModel.listaViajesBuscados(model);
 
-            int pageSize = 2;
-            int pageNumber = (page ?? 1);
+            //int pageSize = 2;
+            //int pageNumber = (page ?? 1);
 
             //PagedList<Viaje> modelPaginado = new PagedList<Viaje>(listaViajes, pageNumber, pageSize);
             
@@ -97,12 +97,9 @@ namespace Web.Controllers
             }            
         }
 
-<<<<<<< HEAD
+
         //Debe estar logueado para acceder a este metodo
         [Authorize]
-=======
-
->>>>>>> origin/master
         [HttpPost]
         public ActionResult Reserva(string ViajeId, string usuarioViaja, string asientos)
         {
@@ -134,7 +131,7 @@ namespace Web.Controllers
             return View();
         }
 
-<<<<<<< HEAD
+
         protected override void Dispose(bool disposing)
         {
             if(disposing)
@@ -143,13 +140,13 @@ namespace Web.Controllers
             }
             base.Dispose(disposing);
         }
-=======
+
         
         public ActionResult Busqueda()
         {
             return View();
         }
 
->>>>>>> origin/master
+
     }
 }

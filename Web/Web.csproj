@@ -51,6 +51,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -197,12 +203,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Migrations\201708301736546_InitialCreate.cs" />
     <Compile Include="Migrations\201708301736546_InitialCreate.Designer.cs">
       <DependentUpon>201708301736546_InitialCreate.cs</DependentUpon>
@@ -239,8 +247,21 @@
     <Compile Include="Migrations\201711161740562_Reserva_RelationManyToMany_ViajeReserva.Designer.cs">
       <DependentUpon>201711161740562_Reserva_RelationManyToMany_ViajeReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711170546483_Model_ChatMessages.cs" />
+    <Compile Include="Migrations\201711170546483_Model_ChatMessages.Designer.cs">
+      <DependentUpon>201711170546483_Model_ChatMessages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711172036058_Relation_ChatMessages_ApplicationUser.cs" />
+    <Compile Include="Migrations\201711172036058_Relation_ChatMessages_ApplicationUser.Designer.cs">
+      <DependentUpon>201711172036058_Relation_ChatMessages_ApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711180442025_Temp_UserNames.cs" />
+    <Compile Include="Migrations\201711180442025_Temp_UserNames.Designer.cs">
+      <DependentUpon>201711180442025_Temp_UserNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModeloAjax.cs" />
@@ -253,7 +274,6 @@
     <Compile Include="Models\ViewModels\ViajeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Views\YoloContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -336,6 +356,8 @@
     <Content Include="FrontEnd\bootstrap\js\bootstrap.js" />
     <Content Include="FrontEnd\bootstrap\js\bootstrap.min.js" />
     <Content Include="FrontEnd\bootstrap\js\npm.js" />
+    <Content Include="FrontEnd\chat\scriptChat.js" />
+    <Content Include="FrontEnd\chat\styleChat.css" />
     <Content Include="FrontEnd\css\animate.css" />
     <Content Include="FrontEnd\css\bootstrap.min.css" />
     <Content Include="FrontEnd\css\clndr.css" />
@@ -600,6 +622,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -662,6 +686,10 @@
     <Content Include="Views\Shared\_Nav.cshtml" />
     <Content Include="Views\User\MisViajes.cshtml" />
     <Content Include="Views\Home\Reserva.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Chat\Chat.cshtml" />
+    <Content Include="Views\Chat\_ChatMessages.cshtml" />
+    <Content Include="Views\Chat\ChatDefault.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -705,6 +733,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711161740562_Reserva_RelationManyToMany_ViajeReserva.resx">
       <DependentUpon>201711161740562_Reserva_RelationManyToMany_ViajeReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711170546483_Model_ChatMessages.resx">
+      <DependentUpon>201711170546483_Model_ChatMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711172036058_Relation_ChatMessages_ApplicationUser.resx">
+      <DependentUpon>201711172036058_Relation_ChatMessages_ApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711180442025_Temp_UserNames.resx">
+      <DependentUpon>201711180442025_Temp_UserNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
