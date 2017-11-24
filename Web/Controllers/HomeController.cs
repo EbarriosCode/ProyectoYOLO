@@ -93,7 +93,29 @@ namespace Web.Controllers
 
             else
             {
-                return View(viaje);
+
+                ViajeDetalleViewModel detalle = new ViajeDetalleViewModel
+                {
+                    ViajeId = viaje.ViajeId,
+                    ApplicationUserId = viaje.ApplicationUserId,
+                    ApplicationUserNombrePiloto = viaje.ApplicationUser.Nombres,
+                    ApplicationUserApellidoPiloto = viaje.ApplicationUser.Apellidos,
+                    ApplicationUserEdad = viaje.ApplicationUser.Edad,
+                    PuntoPartida = viaje.PuntoPartida,
+                    PuntoDestino = viaje.PuntoDestino,
+                    FechaSalida = viaje.FechaSalida,
+                    HoraSalida = viaje.HoraSalida,
+                    FechaRegreso = viaje.FechaRegreso,
+                    HoraRegreso = viaje.HoraRegreso,
+                    Distancia = viaje.Distancia,
+                    Duracion = viaje.Duracion,
+                    Tarifa = viaje.Tarifa,
+                    NumAsientos = viaje.NumAsientos,
+                    DetallesViaje = viaje.DetallesViaje,
+
+                    Pasajeros = db.ViajesReservas.Where(x => x.ViajeId == viaje.ViajeId).ToList()
+                };
+                return View(detalle);
             }            
         }
 
@@ -117,6 +139,16 @@ namespace Web.Controllers
                 };
                 db.Reservas.Add(reserva);
 
+
+                //Descuento de asientos en la tabla Viaje
+                var ViajeDescontar = db.Viajes.Find(idViaje);
+                if(!(numAsientos > ViajeDescontar.NumAsientos))
+                {
+                    ViajeDescontar.NumAsientos = ViajeDescontar.NumAsientos - numAsientos;
+                    TempData["notificacion"] = "Tu solicitud de reserva ha sido enviada!";
+                }
+                
+
                 ViajeReserva Viaje_Reserva = new ViajeReserva()
                 {
                     ViajeId = idViaje,
@@ -126,7 +158,8 @@ namespace Web.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return Redirect("~/Home/Reserva?ViajeId="+idViaje);
+                
             }
             return View();
         }

@@ -1,0 +1,142 @@
+﻿@model Web.Models.ApplicationUser
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_LayoutPanelUser.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row space-5 text-center hidden-xs">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <img src="~/FrontEnd/img/users.png" title="@Model.UserName" class="img-rounded" width="220" height="220">
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h3>¡Hola, @Model.Nombres @Model.Apellidos!&nbsp;</h3>
+                                <p>
+                                    <a href="#">Modificar tu perfil</a>
+                                </p>
+                                <p>
+                                    <a href="#">Ver tu perfil público</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-center">Identificación verificada</div>
+                        <div class="panel-body">
+                            <ul class="list-unystaled space-0">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <i class="fa fa-check "></i>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="media-body"> Correo Electrónico</div>
+                                        <div class="text-muted">Verificado</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <i class="fa fa-times "></i>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="media-body"> Número de Telefono</div>
+                                        <div class="text-muted">No Verificado</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <i class="fa fa-facebook-official "></i>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="media-body">Facebook</div>
+                                        <div class="text-muted">No Conectado</div>
+                                    </div>
+                                </div>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">Actividad</div>
+
+                <div class="panel-body">
+                    <ul class="list-unystaled space-0">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="fa fa-clock-o "></i>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="media-body"> Ultima Conexión</div>
+                                <div class="text-muted">24 de agosto de 2017</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="media-body">Usuarop desde:</div>
+                                <div class="text-muted">15 de agosto de 2017</div>
+                            </div>
+                        </div>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-md-8">
+
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">Notificaciones</div>
+
+                <div class="panel-body">
+                    <a href="https://www.facebook.com/">Aún no has sincronizado YOLO a tu cuenta de facebook</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">¡Todavía no has verificado tu número de móvil!</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">¡Todavía no has rellenado tus datos de contacto al completo!</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">¡Todavía no has rellenado tu perfil al completo!</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">Aún no has sincronizado YOLO a tu cuenta de facebook</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">Aún no has sincronizado YOLO a tu cuenta de facebook</a>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">Mensajes</div>
+
+                <div class="panel-body">
+                    <a href="https://www.facebook.com/">Aún no has sincronizado Yolo a tu cuenta de facebook</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">Aún no has sincronizado Yolo a tu cuenta de facebook</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">Aún no has sincronizado Yolo a tu cuenta de facebook</a>
+                    <hr>
+                    <a href="https://www.facebook.com/">Aún no has sincronizado Yolo a tu cuenta de facebook</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

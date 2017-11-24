@@ -139,14 +139,14 @@
         <div class="container">
             <div class="row text-center" id="heading">
                 <div class="col-md-8 col-md-offset-2 wow animated zoomInDown" id="heading-text">
-                    <h3>Yo lo llevo, yo lo traigo</h3>
+                    <h3>Yolo</h3>
                     <p>Acerca de nosotros</p>
                     <hr class="full">
                     <br />
                 </div>
             </div>	<!-- row -->
             <div class="row about-us-text">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-8 col-md-offset-2" >
                     <p class="text-center">Somos una red social que crea una alternativa para viajar en vehículo a través de la economía compartida con el fin de reducir los costos garantizando la seguridad e integridad de los usuarios, a través de la mejora continua, creando relaciones personales de confianza entre conductores y pasajeros.</p>
                 </div>
             </div>	<!-- row -->
@@ -162,7 +162,7 @@
         <div class="container">
             <div class="row text-center" id="heading">
                 <div class="col-md-6 col-md-offset-3 wow animated zoomInDown" id="heading-text">
-                    <h3>Beneficios YOLO</h3>
+                    <h3>Beneficios</h3>
                     <p>¡Viaja! ¡Comparte! y ¡Ahorra! </p>
                     <hr class="full">
                     <br />
@@ -274,7 +274,7 @@
             <div class="team-members">
                 <div class="row text-center" id="heading">
                     <div class="col-md-6 col-md-offset-3 wow animated zoomInDown" id="heading-text">
-                        <h3>Nuestro Equipo</h3>
+                        <h3>Equipo</h3>
                         <p>Estamos para servirte</p>
                         <hr class="full">
                         <br />
@@ -633,11 +633,30 @@
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6fmXzp7cTuH_1_sWZ0Z1EtGTfDJHrnY0&libraries=places"></script>
         <script>
             //Convertir a autocomplete de google los input
+            
             const search_input_1 = document.getElementById('search-place_1');
             const search_input_2 = document.getElementById('search-place_2');
+
+            /*var cityBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(14.6407200, -90.5132700),
+                new google.maps.LatLng(14.6407200, -90.5132700),
+            );
+            var opciones = {
+                bounds: cityBounds,
+                types: ['(geocode)'],
+                componetRestrictions: {country: "gt"}
+            };*/
+
             const autocomplete1 = new google.maps.places.Autocomplete(search_input_1);
             const autocomplete2 = new google.maps.places.Autocomplete(search_input_2);
 
+            autocomplete1.setComponentRestrictions(
+                {'country' : 'gt'}
+            );
+
+            autocomplete2.setComponentRestrictions(
+                { 'country': 'gt' }
+            );
             /*$.datepicker.setDefaults($.datepicker.regional["es"]);
             $("#fecha-salida").datepicker({
                 dateFormat: 'dd/mm/yy',

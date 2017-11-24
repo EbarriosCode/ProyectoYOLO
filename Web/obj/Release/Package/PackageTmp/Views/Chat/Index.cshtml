@@ -1,0 +1,104 @@
+﻿@*@model Web.Models.Chat*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPanelUser.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <h2 class="text-center">Chat</h2>
+        <div class="col-sm-8 col-md-6 col-md-offset-3" >
+            <div class="chatbody">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="col-md-8 col-xs-8">
+                            
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Mi Chat</h3>
+                            
+                        </div>
+                        <br />
+                    </div>
+                    
+                        
+                    <ul id="contenedor"  style="margin-left:15px;"></ul>
+                        
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input type="hidden" id="nombre-usuarioEnvia" value="@ViewBag.NombreUsuarioEnvia" />
+                            <input type="hidden" id="input-usuarioEnvia" value="@ViewBag.UsuarioEnvia"  />
+                            <input type="hidden" id="input-usuarioRecibe" value="@ViewBag.UsuarioRecibe" />
+                            <input id="input-mensaje" type="text" class="form-control input-sm chat_input" placeholder="Escriba su mensaje aquí..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-sm" id="btn-chat" onclick="InsertMessage()"><i class="fa fa-send fa-1x" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+        
+        <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script>           
+                // Proxy autogenerado por el server
+                var notificationFromHub = $.connection.Chat;
+                
+                // Conexión signalr hub
+                $.connection.hub.start().done(function () {
+                    //alert("Inicia el hub");
+                    FetchMessages();
+                });
+
+                // Notify to client with the recent updates
+                notificationFromHub.client.updatedClients = function () {
+                    FetchMessages();
+                };
+            
+
+            function FetchMessages() {
+                var contenedor = $('#contenedor');
+                $.ajax({
+                    url: '/Chat/GetAllMessagesAdmin',
+                    contentType: 'application/html ; charset:utf-8',
+                    type: 'GET',
+                    dataType: 'html'
+                }).success(function (result) {
+                    //alert(result);
+                    contenedor.empty().append(result);
+                });
+            }
+
+            // Insert Employee Record
+            function InsertMessage() {
+
+                var message = {                    
+                    UsuarioEnvia: $("#input-usuarioEnvia").val(),
+                    UsuarioRecibe: $("#input-usuarioRecibe").val(),
+                    NombreUsuarioEnvia: $("#nombre-usuarioEnvia").val(),
+                    Mensaje: $('#input-mensaje').val()                    
+                };
+
+
+                $.ajax({
+                    url: '/Chat/Insert',
+                    type: 'POST',
+                    data: JSON.stringify(message),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        //alert('Mensaje Enviado');
+                    },
+                    error: function () {
+                        alert('No se envio el mensaje');
+                    }
+                });
+
+                $('#input-mensaje').val("");
+            }
+        </script>
+
+

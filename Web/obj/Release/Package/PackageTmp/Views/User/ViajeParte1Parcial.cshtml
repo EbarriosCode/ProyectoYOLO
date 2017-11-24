@@ -1,0 +1,242 @@
+﻿@model Web.Models.ViewModels.ViajeViewModel
+
+
+
+<div style="background-color:purple; color:white; width:80%">
+    <h3>Parte 1</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(m => m.ApplicationUserId)</dt>
+            <dd>@Html.DisplayFor(m => m.ApplicationUserId)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.PuntoPartida)</dt>
+            <dd>@Html.DisplayFor(m => m.PuntoPartida)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.PuntoDestino)</dt>
+        <dd>@Html.DisplayFor(m => m.PuntoDestino)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.FechaSalida)</dt>
+            <dd>@Html.DisplayFor(m => m.FechaSalida)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.HoraSalida)</dt>
+            <dd>@Html.DisplayFor(m => m.HoraSalida)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.FechaRegreso)</dt>
+            <dd>@Html.DisplayFor(m => m.FechaRegreso)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.HoraRegreso)</dt>
+            <dd>@Html.DisplayFor(m => m.HoraRegreso)</dd>
+    </dl>
+</div>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class=" panel panel-heading  text-center" style="width:100%; background:#d9edf7; border-color:#bce8f1; color:#31708f">Resumen del viaje</div>
+            <div id="map" style="height:500px; width:100%;"></div>
+            <p>
+                <i class="fa fa-map-marker " style="color:limegreen"></i>
+                <strong>Guatemala (salida)</strong>
+                <span>→</span>
+                <i class="fa fa-map-marker" style="color:red"></i>
+                <strong>Retalhuleu (llegada)</strong>
+            </p>
+
+            <div class="form-group">
+                <div class="col-md-4 control-label">Viaje de ida:</div>
+                <div class="col-md-7">
+                    <div class="col-md-7 control-label">dd/mm/aaa --:--</div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-4 control-label">Viaje de regreso:</div>
+                <div class="col-md-7">
+                    <div class="col-md-7 control-label">dd/mm/aaa --:--</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4 control-label">Distancia:</div>
+                <div class="col-md-7">
+                    <div class="col-md-7 control-label">--- km</div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-4 control-label">Tiempo aproximado:</div>
+                <div class="col-md-7">
+                    <div class="col-md-7 control-label">-- h -- min</div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-4 control-label">Emisiones de CO<sub>2</sub>:</div>
+                <div class="col-md-7">
+                    <div class="col-md-7 control-label">--- Kg</div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">Aportación por pasajero</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <p>
+                                <i class="fa fa-map-marker " style="color:limegreen"></i>
+                                <strong>Guatemala (salida)</strong>
+                                <span>→</span>
+                                <i class="fa fa-map-marker" style="color:red"></i>
+                                <strong>Retalhuleu (llegada)</strong>
+                            </p>
+                        </div>
+                        <div class="row">
+
+                            <!-- 								<div class="col-md-3">
+                            <div class="input-group margin-bottom-sm">
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-quora " style="color:black"></i>
+                                                                </span>
+                                 <input type="text" name="" size="9">
+                            </div>
+                             </div> -->
+                            <div class="col-md-1">
+                                <div class="input-group margin-bottom-sm ">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-quora " style="color:black"></i>
+                                    </span>
+                                    <input type="number" step="0.01" placeholder="0.00" name="" style="float:left; width:100px">
+                                </div>
+                            </div>
+                            <!-- <div class="input-group spinner">
+                            <div class="col-md-1"> <button class="btn btn-default btn-xs" style="float:right" type="button"><i class="fa fa-caret-up"></i></button></div>
+                            <div class="col-md-1"> <button class="btn btn-default btn-xs" style="float:right" type="button"><i class="fa fa-caret-down"></i></button></div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">Asientos</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-5"><strong>Asientos Disponibles</strong></label>
+                        <div class="input-group number-spinner col-md-7">
+                            <span class="input-group-btn">
+                                <a class="btn btn-danger" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></a>
+                            </span>
+                            <input type="text" disabled name="adult" id="adult" class="form-control text-center" value="1" max=9 min=1>
+                            <span class="input-group-btn">
+                                <a class="btn btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">Detalles</div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <p>Añade algunos detalles de tu viaje</p>
+                        <textarea class="form-control" placeholder="Explica algunos detalles de tu viaje..." rows="3"></textarea>
+                    </div>
+
+                    <p>
+                        <i class="fa fa-info-circle" style="color:darkblue"></i>
+                        No escribas tus datos de contacto en el recuadro anterior. Los pasajeros que reserven recibirán tu móvil.
+                        <button type="button" class="btn btn-link">Políticas de privacidad</button>
+                    </p>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Vehículo</label>
+                        <div class="col-md-8">
+                            <select class="form-control">
+                                <option>Selecciona tu vehículo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Flexibilidad</label>
+                        <div class="col-md-8">
+                            <select class="form-control">
+                                <option>Puntual</option>
+                                <option>15 minutos</option>
+                                <option>Media Hora</option>
+                                <option>1 hora</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Equipaje Máx.</label>
+                        <div class="col-md-8">
+                            <select class="form-control">
+                                <option>Grande</option>
+                                <option selected="">Mediano</option>
+                                <option>Pequeño</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Desvío Posible</label>
+                        <div class="col-md-8">
+                            <select class="form-control">
+                                <option>Ninguno</option>
+                                <option>15 minutos máximo</option>
+                                <option>30 minutos máximo</option>
+                                <option>Lo que necesite el pasajero</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">¿Permitir que reserven asientos automáticamente?</div>
+
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <input type="radio" checked> <strong>Sí</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <div>(Preferido por la mayoría de los usuarios)</div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="radio"> <strong>No</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <div>(Tendrás que aceptar las solicitudes de reserva de asientos para aprobarlas)</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">Términos y política de privacidad</div>
+                <div class="panel-body">
+                    <input type="checkbox"> Acepto los <a href="">"Términos y política de privacidad"</a> y declaro estar en posesión de una licencia de conducir vigente.
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-danger" style="float:left; padding-left: 13px; padding-right:13px;"> <span>←</span> Volver</button>
+            <button class="btn btn-primary" data-toggle="modal" style=" float: right; padding-left: 13px; padding-right:13px;"> <span>→</span> Continuar</button>
+
+        </div>
+    </div>
+</div>
+
+
+
+

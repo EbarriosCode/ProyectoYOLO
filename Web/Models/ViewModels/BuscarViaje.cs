@@ -51,7 +51,7 @@ namespace Web.Models.ViewModels
             var viajes = db.Viajes
                         .Include("ApplicationUser")
                         .Where(v => v.PuntoPartida.Contains(model.PuntoPartida))
-                        .Where(v => v.PuntoDestino.Contains(model.PuntoDestino))
+                        .Where(v => v.PuntoDestino.Contains(model.PuntoDestino))                        
                         .ToList();
 
            foreach(var item in viajes)

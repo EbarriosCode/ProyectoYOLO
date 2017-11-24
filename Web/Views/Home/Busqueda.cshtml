@@ -109,6 +109,14 @@
             const autocomplete1 = new google.maps.places.Autocomplete(search_input_1);
             const autocomplete2 = new google.maps.places.Autocomplete(search_input_2);
 
+            autocomplete1.setComponentRestrictions(
+                { 'country': 'gt' }
+            );
+
+            autocomplete2.setComponentRestrictions(
+                { 'country': 'gt' }
+            );
+
             /*$.datepicker.setDefaults($.datepicker.regional["es"]);
             $("#fecha-salida").datepicker({
                 dateFormat: 'dd/mm/yy',

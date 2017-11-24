@@ -1,0 +1,19 @@
+﻿@model List<Web.Models.ViajeReserva>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr class="active">
+            <th>Nombre del Psajero</th>
+            <th>Número de Asientos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+           <tr>
+               <td>@item.Reserva.ApplicationUser.Nombres @item.Reserva.ApplicationUser.Apellidos</td>
+               <td>@item.Reserva.NumAsientos</td>
+           </tr>
+        }
+    </tbody>
+</table>

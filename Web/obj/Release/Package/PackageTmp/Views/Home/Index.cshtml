@@ -1,0 +1,279 @@
+﻿@using Microsoft.AspNet.Identity
+@model Web.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/shared/_LayoutNav.cshtml";
+}
+
+<div id="wrapper">
+    <div id="overlay-1">
+        <section id="navigation">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="ion-navicon"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">YOLO</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#search"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Buscar Viaje</a></li>
+                            <li><a href="#about">Acerca de nosotros</a></li>
+                            <li><a href="#our_service">Beneficios</a></li>
+                            <li><a href="#team">Equipo</a></li>
+                            <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+                            @*<li><a href="#price_table">Precios</a></li>*@
+                            <!-- <li><a href="#blog">Blog</a></li> -->
+                            @*<li><a href="#testimonial">Testimonios</a></li>*@
+                            <li><a href="#contact">Contáctanos</a></li>
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <a href="~/Account/Register"><button class="btn btn-info btn-lg" @*data-toggle="modal" data-target="#registro"*@>Registro</button></a>
+                                <a href="~/Account/Login"><button class="btn btn-info btn-lg" @*data-toggle="modal" data-target="#iniciosesion"*@>Inicia Sesión</button></a>
+                            }
+                            else
+                            {
+                                if (Request.IsAuthenticated)
+                                {
+                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <a href="javascript:document.getElementById('logoutForm').submit()" class="pull-right"><button class="btn btn-warning btn-lg">Cerrar Sesión</button></a>
+                                    }
+                                }
+                                @*<div class="profile_details">
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <ul class="pull-right">
+                                                <li class="dropdown profile_details_drop">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        <div class="profile_img">
+                                                           
+                                                            <div class="user-name">
+                                                                <!-- NOMBRE DEL USUARIO LOGUEADO -->
+                                                                <p>@User.Identity.GetUserName()</p>
+
+                                                            </div>
+                                                            <i class="fa fa-angle-down lnr"></i>
+                                                            <i class="fa fa-angle-up lnr"></i>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a>
+
+
+                                                    <ul class="dropdown-menu drp-mnu">
+                                                        <li> <a href="~/User/Perfil"><i class="fa fa-home nav_icon"></i> Panel</a> </li>
+
+                                                        <!--<li> <a href="#"><i class="fa fa-envelope"></i> Mensajes</a> </li>-->
+                                                        <li> <a href="~/User/MisViajes"><i class="fa fa-car"></i> Mis Viajes</a> </li>
+                                                        <li> <a href="~/User/Viajes"><i class="fa fa-calendar"></i> Reservas</a> </li>
+                                                       
+                                                        <li> <a href="~/User/Configuracion"><i class="fa fa-cog"></i> Configuración</a> </li>
+                                                        <li> <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        }
+                                    }
+                                </div>*@
+                            }
+                            <div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4>Bienvenido a YOLO </h4>
+                                        </div>
+
+                                        <div class="modal-body">
+
+                                            <div class="form-top">
+                                                <div class="form-top-left">
+                                                    <h3>Regístrate</h3>
+                                                </div>
+                                                <div class="form-top-right">
+                                                    <i class="fa fa-pencil"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-bottom">
+                                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "registration-form", role = "form" }))
+                                                {
+                                                        @Html.AntiForgeryToken()
+                                                        <div>
+                                                            <div class="form-group" style="float:left; width: 49%;">
+                                                                <label class="sr-only" for="form-first-name">Nombres</label>
+                                                                @*<input type="text" name="form-first-name" placeholder="Nombres..." class="form-first-name form-control" id="form-first-name">*@
+                                                                @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control", @placeholder = "Nombres..." })
+                                                                @Html.ValidationMessageFor(m => m.Nombres, "", new { @class = "label label-danger" })                                                                
+                                                            </div>
+                                                            <div class="form-group" style="float:right; width: 49%;">
+                                                                <label class="sr-only" for="form-last-name">Apellidos</label>
+                                                                @*<input type="text" name="form-last-name" placeholder="Apellidos..." class="form-last-name form-control" id="form-last-name">*@
+                                                                @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", @placeholder = "Apellidos..." })
+                                                                @Html.ValidationMessageFor(m => m.Apellidos, "", new { @class = "label label-danger" })                                                                
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="form-user">Usuario</label>
+                                                            @*<input type="text" name="form-user" placeholder="Usuario..." class="form-user form-control" id="form-user">*@
+                                                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Usuario..." })
+                                                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "label label-danger" })
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="form-email">Email</label>
+                                                            @*<input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">*@
+                                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email..." })
+                                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "label label-danger" })
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="form-group" style="float:left; width: 49%;">
+                                                                <label class="sr-only" for="form-password">Contraseña</label>
+                                                                @*<input type="text" name="form-password" placeholder="Contraseña..." class="form-password form-control" id="form-password">*@
+                                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña..." })
+                                                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "label label-danger" })
+                                                            </div>
+                                                            <div class="form-group" style="float:right; width: 49%;">
+                                                                <label class="sr-only" for="form-c-password">Confirmar Contraseña</label>
+                                                                @*<input type="text" name="form-c-password" placeholder="Confirmar Contraseña..." class="form-c-password form-control" id="form-c-password">*@
+                                                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar Contraseña..." })
+                                                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "label label-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="form-group">
+                                                                <label class="sr-only" for="phone">Teléfono</label>
+                                                                @*<input type="text" name="form-phone" placeholder="Teléfono..." class="form-phone form-control" id="form-phone">*@
+                                                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Teléfono..." })
+                                                                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "label label-danger" })
+                                                            </div>                                                            
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="date">Fecha de nacimiento</label>
+                                                            @*<input type="text" name="form-date" placeholder="Fecha de nacimiento..." class="form-date form-control" id="form-date">*@
+                                                            @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "form-date form-control", @placeholder = "Fecha de Nacimiento...", type = "date", @id = "date" })
+                                                            @Html.ValidationMessageFor(m => m.FechaNacimiento, "", new { @class = "label label-danger" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="form-about-yourself">Mini Biografía</label>
+                                                            @*<textarea name="form-about-yourself" placeholder="Mini Biografía..."
+                                                                      class="form-about-yourself form-control" id="form-about-yourself"></textarea>*@
+                                                            @Html.TextAreaFor(m => m.Biografia, new { @class = "form-control", @placeholder = "Biografía..." })
+                                                            @Html.ValidationMessageFor(m => m.Biografia, "", new { @class = "label label-danger" })
+                                                        </div>
+                                                        <button type="submit" class="btn">¡Registrarme!</button>
+                                                        @*<input type="submit" class="btn" value="¡Registrarme!" />*@
+                                                }
+                                            </div>
+
+
+
+                                            <div class="social-login">
+                                                <h4>...O registrate con:</h4>
+                                                <div class="social-login-buttons">
+                                                    <a class="btn btn-link-1 btn-link-1-facebook" href="#">
+                                                        <i class="fa fa-facebook"></i> Facebook
+                                                    </a>
+                                                    <a class="btn btn-link-1 btn-link-1-google-plus" href="#">
+                                                        <i class="fa fa-google-plus"></i> Google
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="modal fade" id="iniciosesion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4>Bienvenido a YOLO</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-top">
+                                                <div class="form-top-left">
+                                                    <h3>Inicia Sesión</h3>
+                                                    <p>Ingresa tu usuario y contraseña:</p>
+                                                </div>
+                                                <div class="form-top-right">
+                                                    <i class="fa fa-key"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-bottom">
+                                                    @*<form role="form" action="" method="post" class="login-form">*@
+                                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="form-username">Usuario</label>
+                                                            @*<input type="text" name="form-username" placeholder="Usuario..." class="form-username form-control" id="form-username">*@
+                                                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control",@placeholder="Usuario..." })
+                                                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "label label-danger" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="form-password">Contraseña</label>
+                                                            @*<input type="password" name="form-password" placeholder="Contraseña..." class="form-password form-control" id="form-password">*@
+                                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" ,@placeholder="Contraseña..."})
+                                                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "label label-danger" })
+                                                        </div>
+                                                        <button type="submit" class="btn">¡Iniciar Sesión!</button>
+                                                    }
+
+</div>
+                                            <div class="social-login">
+                                                <h4>...O inicia sesión con:</h4>
+                                                <div class="social-login-buttons">
+                                                    <a class="btn btn-link-1 btn-link-1-facebook" href="#">
+                                                        <i class="fa fa-facebook"></i> Facebook
+                                                    </a>
+                                                    <a class="btn btn-link-1 btn-link-1-google-plus" href="#">
+                                                        <i class="fa fa-google-plus"></i> Google
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ul>
+
+                    </div>	<!-- collapse navbar-collapse -->
+                </div>	<!-- container-fluid -->
+            </nav>	<!-- navbar -->
+        </section>	<!-- #navigation -->
+
+        <section id="starting">
+            <div class="text-center starting-text">
+                <h1 class="rene">YOLO</h1>
+                <h2>¡Viaja! ¡Comparte! y ¡Ahorra!</h2>
+            </div>
+        </section>
+        <div id="bottom" class="bottom text-center">
+            <a href="#about"><i class="ion-ios7-arrow-down"></i></a>
+        </div>
+    </div><!-- overlay-1 -->
+</div>	<!-- wrapper -->
+<!-- About Us -->
+

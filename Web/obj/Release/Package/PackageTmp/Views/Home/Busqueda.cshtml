@@ -1,0 +1,162 @@
+﻿@{
+    Layout = "~/Views/shared/_LayoutPanelUser.cshtml";
+}
+
+@model Web.Models.ViewModels.BuscarViaje
+@{
+    DateTime fecha = DateTime.Now;
+    string fechaHoy = fecha.ToShortDateString();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="panel panel-info">
+                <div class=" panel panel-heading  text-center" style="width:100%; background:#d9edf7; border-color:#bce8f1; color:#31708f">Buscar viaje</div>
+
+
+
+
+                @using (Html.BeginForm("BuscarViajes", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-md-3" style="height:100%">
+                                <div class="input-group margin-bottom-sm" style="height:100%">
+                                    <span class="input-group-addon"> <i class="fa fa-map-marker " style="color:limegreen"></i> </span>
+                                    @*<input type="text" class="form-control" id="search-place_1" placeholder="Ubicación de Partida" />*@
+                                    @Html.TextBoxFor(m => m.PuntoPartida, new { @class = "form-control", @id = "search-place_1", @placeholder = "Ubicación de Partida" })
+                                    @Html.ValidationMessageFor(m => m.PuntoPartida, "", new { @class = "label label-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="input-group margin-bottom">
+                                    <button type="button" class="btn btn-primary" style=" height:100%" id="cambiar-puntos"><span><i class="fa fa-exchange"></i></span></button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" style="height:100%">
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fa fa-map-marker" style="color:red"></i></span>
+                                    @*<input type="text" class="form-control" id="search-place_2" placeholder="Ubicación Destino" />*@
+                                    @Html.TextBoxFor(m => m.PuntoDestino, new { @class = "form-control", @id = "search-place_2", @placeholder = "Ubicación Destino" })
+                                    @Html.ValidationMessageFor(m => m.PuntoDestino, "", new { @class = "label label-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="input-group margin-bottom-sm" style="height:80%">
+                                    <span class="input-group-addon"><i class="fa fa-calendar" style="color:black"></i></span>
+                                    @*<input type="date" name="form-date"  class="form-control form-date" placeholder="Fecha" style="background: #f8f8f8; font-family: 'Roboto', sans-serif;
+                                font-size: 16px; font-weight: 300; color: #888; border: 3px solid #ddd; height: 50px; padding: 0 20px;">*@
+                                    @Html.TextBoxFor(m => m.Fecha, new
+                   {
+                       @class = "form-date form-control",
+                       @placeholder = "Fecha de Salida...",
+                       type = "date",
+                       @id = "fecha-salida",
+                       @style = "background: #f8f8f8; font-family: 'Roboto', sans-serif; font - size: 16px; font - weight: 300; color: #888; border: 3px solid #ddd;  padding: 0 20px;",
+                       @value = fechaHoy
+                   })
+                                    @Html.ValidationMessageFor(m => m.Fecha, "", new { @class = "label label-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="input-group margin-bottom">
+                                    <button class="btn btn-primary " data-toggle="modal"> <i class="fa fa-search" aria-hidden="true"></i> buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div> 
+
+            <img src="~/FrontEnd/img/loading.gif" id="image_loading" width="30" height="30" style="display:none" />
+            <div id="resultado"></div>
+
+            </div>
+            <center>
+                <div style="width: 98%; max-width: 460px; margin: 0 auto; ">
+
+                    <img src="~/FrontEnd/img/mapa.jpg" align="center" alt="" style="width: 100%; height: auto ">
+                </div>
+
+            </center>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6fmXzp7cTuH_1_sWZ0Z1EtGTfDJHrnY0&libraries=places"></script>
+    <script>
+            //Convertir a autocomplete de google los input
+            const search_input_1 = document.getElementById('search-place_1');
+            const search_input_2 = document.getElementById('search-place_2');
+            const autocomplete1 = new google.maps.places.Autocomplete(search_input_1);
+            const autocomplete2 = new google.maps.places.Autocomplete(search_input_2);
+
+            autocomplete1.setComponentRestrictions(
+                { 'country': 'gt' }
+            );
+
+            autocomplete2.setComponentRestrictions(
+                { 'country': 'gt' }
+            );
+
+            /*$.datepicker.setDefaults($.datepicker.regional["es"]);
+            $("#fecha-salida").datepicker({
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1
+            }).datepicker("setDate", new Date());*/
+
+            var hoy = new Date();
+            var dd = hoy.getDate();
+            var mm = hoy.getMonth()+1;
+            var yy = hoy.getFullYear();
+
+            if (dd < 10)
+                dd = '0' + dd;
+
+            if (mm < 10)
+                mm = '0' + mm;
+
+            hoy = yy+'/' + mm + '/'+dd;
+            //alert(hoy);
+            //$("#fecha-salida").val(hoy);
+    </script>
+    <script>
+            $(function () {
+                var partida;
+                var destino;
+
+                $('#search-place_1').blur(function () {
+                    partida = $('#search-place_1').val();
+                });
+
+                $('#search-place_2').blur(function () {
+                    destino = $('#search-place_2').val();
+                });
+
+                $("#cambiar-puntos").click(function () {
+                    $('#search-place_1').val(destino);
+                    $('#search-place_2').val(partida);
+                });
+            });
+
+    </script>
+</body>
+</html>

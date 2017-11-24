@@ -1,0 +1,151 @@
+﻿@model Web.Models.Viaje
+@{
+    ViewBag.Title = "Viajes";
+    Layout = "~/Views/Shared/_LayoutPanelUser.cshtml";
+}
+<style>
+    #contenedor-info{
+        margin-left:85px;
+    }
+</style>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-4">            
+            <div id="map" style="height:400px; width:600px;"></div>
+
+            <div id="info"></div>            
+        </div>
+        @*<div id="contenedor-info" class="col-md-4">
+            <input type="text" class="form-control" id="search-place_1" placeholder="Buscar Ubicación de Partida" />
+            <br />
+            <input type="text" class="form-control" id="search-place_2" placeholder="Buscar Ubicación Destino" />
+            <br />
+            @*<h3>Información Obtenida</h3>
+
+            <div id="info"></div>
+        </div>*@
+        <!-- Formulario viaje -->
+        <div class="col-md-3"> </div>
+        
+        
+            <div class="col-md-4">            
+            @*@using (Ajax.BeginForm("Viajes", "User", null,
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod = "Post",
+                                        UpdateTargetId = "resultado",
+                                        //OnSuccess = "SuccessMessage",
+                                        //OnFailure = "FailMessage",
+                                        //LoadingElementId = "image_loading"
+                                    }, new { @class = "form-horizontal", role = "form" }))*@
+            @using (Html.BeginForm("Viajes", "User",FormMethod.Post))   
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @*<form id="form-viaje" method="post">*@
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-center">Puntos de partida y destino</div>
+                        <div class="panel-body">
+                            @Html.HiddenFor(m => m.ApplicationUserId, new { Value = Session["ApplicationUserId"].ToString(), @id = "idUsuario" })
+                            <div class="input-group margin-bottom-sm">
+
+                                <span class="input-group-addon">
+                                    <i class="fa fa-map-marker " style="color:limegreen"></i>
+                                </span>
+                                @*<input type="text" class="form-control" id="search-place_1" placeholder="Buscar Ubicación de Partida" />*@
+                                @Html.TextBoxFor(m => m.PuntoPartida, new { @class = "form-control", @id = "search-place_1", @placeholder = "Buscar Ubicación de Partida" })
+                                @Html.ValidationMessageFor(m => m.PuntoPartida, "", new { @class = "label label-danger" })
+                            </div>
+                            <br />
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-map-marker" style="color:red"></i>
+                                </span>
+                                @*<input type="text" class="form-control" id="search-place_2" placeholder="Buscar Ubicación Destino" />*@
+                                @Html.TextBoxFor(m => m.PuntoDestino, new { @class = "form-control", @id = "search-place_2", @placeholder = "Buscar Ubicación Destino" })
+                                @Html.ValidationMessageFor(m => m.PuntoDestino, "", new { @class = "label label-danger" })
+                            </div>
+
+                            @*Datos de distancia y duración del viaje*@
+                            @Html.HiddenFor(m => m.Distancia,new { @id="txtDistancia"})
+                            @Html.HiddenFor(m => m.Duracion, new { @id = "txtDuracion" })
+                        </div>
+                    </div>
+                    <!-- Fecha y hora ida y vuelta -->
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-center">Fecha y Hora del viaje</div>
+                        <div class="panel-body">
+                            <div class="checkbox">
+                                <label><input type="checkbox" checked id="checkarIda-Vuelta">Ida y vuelta</label>
+                            </div>
+                            <div class="form-group" style="float:left; width: 49%;">
+                                <label for="date">Fecha de ida</label>
+                                @*<input type="date" name="form-date" class="form-date form-control" id="form-date">*@
+                                @Html.TextBoxFor(m => m.FechaSalida, new { @class = "form-date form-control", @placeholder = "Fecha de Salida...", type = "date", @id = "fecha-salida" })
+                                @Html.ValidationMessageFor(m => m.FechaSalida, "", new { @class = "label label-danger" })
+                            </div>
+                            <div class="form-group" style="float:left; width: 49%;">
+                                <label for="time">Hora de salida</label>
+                                @*<input type="time" name="form-time" class="form-time form-control" id="form-time">*@
+                                @Html.TextBoxFor(m => m.HoraSalida, new { @class = "form-time form-control", @placeholder = "Hora de Salida...", @id = "hora-salida", type = "time" })
+                                @Html.ValidationMessageFor(m => m.HoraSalida, "", new { @class = "label label-danger" })
+                            </div>
+                            <br />
+                            <div class="form-group" style="float:left; width: 49%;" id="div-fecha-regreso">
+                                <label for="date">Fecha de regreso</label>
+                                @*<input type="date" name="form-date" class="form-date form-control" id="form-date">*@
+                                @Html.TextBoxFor(m => m.FechaRegreso, new { @class = "form-date form-control", @placeholder = "Fecha de Regreso...", type = "date", @id = "fecha-regreso" })
+                                @Html.ValidationMessageFor(m => m.FechaRegreso, "", new { @class = "label label-danger" })
+                            </div>
+                            <div class="form-group" style="float:left; width: 49%;" id="div-hora-regreso">
+                                <label for="time">Hora de salida</label>
+                                @*<input type="time" name="form-time" class="form-time form-control" id="form-time">*@
+                                @Html.TextBoxFor(m => m.HoraRegreso, new { @class = "form-time form-control", @placeholder = "Hora de Regreso...", @id = "hora-regreso", type = "time" })
+                                @Html.ValidationMessageFor(m => m.HoraRegreso, "", new { @class = "label label-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="continuar-viaje" class="btn btn-primary" style="float:right">  <span>→</span> Continuar</button>
+                    }            
+        </div>
+        @*<div class="col-md-12" id="info">Info</div>*@
+        @*<div class="col-md-12" id="resultado">Aqui va el resultado</div>*@
+    </div>
+</div>
+
+@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6fmXzp7cTuH_1_sWZ0Z1EtGTfDJHrnY0&libraries=places"></script>*@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8kLTSuOOA30wach-OwlymwZDP53jo3ok&libraries=places"></script>
+<script src="~/Scripts/ScriptMaps/user_location.js"></script>
+<script type="text/javascript" src="~/Scripts/ScriptMaps/main.js"></script>
+<script>
+    $("#checkarIda-Vuelta").click(() => {
+        if ($("#checkarIda-Vuelta").is(":checked") == true) {
+            //alert("Checkeado");
+            $("#div-fecha-regreso").show();
+            $("#div-hora-regreso").show();
+        }
+        else {
+            //alert("No Checkeado");
+            $("#div-fecha-regreso").hide();
+            $("#div-hora-regreso").hide();
+        }
+    });
+
+    $("#continuar-viaje").click(function () {
+        $.ajax({
+            url:"User/Viajes",//"@Url.Action("Viajes")",            
+            data: $("#form-viaje").serialize(),
+            type: "POST",
+            success: function (response) {
+                $("#resultado").html(response);
+                //alert(response);
+                //$("#resultado").hide("slow", function () {
+                //    $(this).html(response);
+                //    $(this).show("slow");
+                //});
+            }
+        });
+    });
+
+</script>

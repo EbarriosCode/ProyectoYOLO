@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <!-- css -->
+    <link rel="stylesheet" href="~/FrontEnd/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/owl.theme.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/owl.transitions.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/animate.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/custom.css">
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <!-- <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="~/FrontEnd/css/style.css">
+    <link rel="stylesheet" href="~/FrontEnd/assets/css/form-elements.css">
+    <link rel="stylesheet" href="~/FrontEnd/assets/css/style.css">
+    <link href="~/FrontEnd/zocial/zocial.css" rel="stylesheet" />
+
+
+    <!-- js -->
+    <script src="~/FrontEnd/js/jquery.min.js"></script>
+    <script src="~/FrontEnd/js/bootstrap.min.js"></script>
+    <script src="~/FrontEnd/js/owl.carousel.min.js"></script>
+    <script src="~/FrontEnd/js/isotope.pkgd.min.js"></script>   
+    <script src="~/FrontEnd/js/wow.min.js"></script>
+    <script src="~/FrontEnd/js/jquery.actual.min.js"></script>
+
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
+    <!-- Required jQuery and jQuery UI Javascript references -->
+
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
+</head>
+<body>
+    
+    <div class="container body-content">
+        @RenderBody()
+        
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+</body>
+</html>

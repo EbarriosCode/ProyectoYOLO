@@ -1,0 +1,149 @@
+﻿@*﻿@using PagedList.Mvc;*@
+@*@model PagedList.IPagedList<Web.Models.Viaje>*@
+@model List<Web.Models.Viaje>
+@{
+    Layout = "~/Views/shared/_Nav.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BusquedaViajes</title>
+</head>
+<body>
+    <div> 
+        <h1>Busqueda de viajes</h1>
+    </div>   
+
+    <div class="row">
+        <div class="col-md-12 panel-grids">
+            <br />
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Resultados</h3>
+                </div>
+                <div class="panel-body" style="background:#F1F1F1">
+                    <div>
+                        <!-- cantidad disp -->
+                        <center>
+                            <label for="">(@*@Model.TotalItemCount*@@Model.Count())</label> viajes disponibles 
+                        </center>
+                    </div>
+
+                    <div class=" col-md-12 panel panel-body " style="background:#DCDCDC">
+                        <!-- DURACION Y ORDEN -->
+                        <div class="col-md-4">
+                            <!-- <div class="col-md-3" style="float:left background:darkblue"> -->
+                            Duración: <label for="">horas</label> h <label for="">minutos</label> m
+                            <!-- </div> -->
+                        </div>
+                        <div class="col-md-3" style="float:right; ">
+                            <div class="col-md-6" style=" text-align: right; ">
+                                <strong style="justify-content: right;"> Ordenar por </strong>
+                            </div>
+                            <div>
+                                <div style="float:left">
+                                    <a href="#" class="dropdown/toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" title="Ordenar por hora de salida"><span class="glyphicon glyphicon-time"></span></button>
+                                        <ul class="dropdown-menu drp-mnu" style="width:50%">
+                                            <li> <a href="#"><i class="fa fa-sort-amount-asc"></i> Fecha más cercana </a></li>
+                                            <li> <a href="#"><i class="fa fa-sort-amount-desc"></i> Fecha más lejana </a></li>
+                                        </ul>
+                                    </a>
+                                </div>
+                                <div style="float:left">
+                                    <a href="#" class="dropdown/toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <button type="button" class="btn btn-default btn-sm " data-toggle="tooltip" title="Ordenar por cantidad de dinero aportada"><span class="fa fa-quora"></span></button>
+                                        <ul class="dropdown-menu drp-mnu" style="width:50%">
+                                            <li> <a href="#"><i class="fa fa-sort-amount-asc"></i> Más barato primero </a></li>
+                                            <li> <a href="#"><i class="fa fa-sort-amount-desc"></i> Más caro primero </a></li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    
+                       
+                            <!--empiezan los registros-->
+                            @foreach (var item in Model)
+                            {
+                                <div class="  grid_4 widget-shadow" style="height: 120px;">
+                                    <article class="row" >
+                                        <div class="col-md-2">
+                                            <center>
+                                                <div class="col-md-2" style="width:100%; height: 80%; ">
+                                                    <img src="~/FrontEnd/img/no-foto.jpg" alt="" style="vertical-align: middle; border: 4px; border-radius: 63%;  height:80%;">
+                                                </div>
+                                                <div style=" width:100%; height: 100%; ">
+                                                    <label style="width:49%; float:left; margin-top:-10px; text-align: right; ">@item.ApplicationUser.Nombres</label>
+                                                    <label for="" style="width:49%;text-align: left; margin-top:-10px; float:right">@item.ApplicationUser.Apellidos</label>
+                                                    @*<label># años></label>*@
+                                                </div>
+                                            </center>
+                                        </div>
+
+                                        <div class="col-md-10" style="height: 120px;">
+                                            <div class="col-md-7">
+
+                                                <h3><label for="">@item.FechaSalida</label> a las <label for="">@item.HoraSalida</label> hrs.</h3>
+                                                <div>
+                                                    <span><i class="fa fa-map-marker" style="color:green"></i> Descripción de origen: @item.PuntoPartida</span>
+
+                                                    <br />
+                                                    <span><i class="fa fa-map-marker" style="color:red"></i> Descripción de destino: @item.PuntoDestino</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3" style=" height:100%">
+                                                <center>
+                                                    <h2><span class="fa fa-quora"></span> <label for="">@item.Tarifa</label></h2>
+                                                    <h4>Por asiento</h4>
+                                                    <br />
+                                                    <strong> @item.NumAsientos </strong> <span> asientos disponibles</span>
+                                                </center>
+                                            </div>
+                                            <div class="col-md-2" style=" height:100%">
+                                                <center>
+                                                   <br/> 
+                                                    @*<a href="~/Home/Reserva/@item.ViajeId"><button class="btn btn-info btn-lg">Reserva</button></a>*@
+                                                    <a href="@Url.Action("Reserva", "Home", new { ViajeId = @item.ViajeId }, null)" class="btn btn-info btn-lg">Reserva</a>
+                                                    @*@Html.ActionLink("Reserva","Reserva", "Home", new { ViajeId = @item.ViajeId }, null)*@
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                    <!--terminan los registros-->
+                                    }
+
+                                
+
+                    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("BuscarViajes",new { page = page }),PagedListRenderOptions.PageNumbersOnly)*@
+                    
+                    @*<center>
+                        <nav>
+                            <ul class="pagination">
+                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                            </ul>
+                        </nav>
+                    </center>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Views/shared/_LayoutPanelUser.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div id="page-wrapper">
+        <div class="main-page compose">
+            <div class="col-md-8 compose-left">
+                <div class="folder widget-shadow">
+                    <ul class="nav ">
+
+                        <li class="head">Información de perfil</li>
+                        <li class="nav-item active"><a href="inbox.html"><i class="fa fa-user"></i> Información personal </a></li>
+                        <li><a href="#"><i class="fa fa fa-camera"></i> Foto</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Preferencias </a> </li>
+                        <li><a href="#"><i class="fa fa-check-circle" aria-hidden="true"></i> Validaciones </a></li>
+                        <li><a href="#"><i class="material-icons" style=" font-size: 20px">directions_car</i> Vehículo</a></li> <!-- Icono con material-icons google -->
+                        <li><a href="#"><i class="fa fa-location-arrow"></i>Dirección</a></li>
+
+                    </ul>
+                </div>
+                <div class="chat-grid widget-shadow">
+                    <ul>
+                        <li class="head">Opiniones </li>
+                        <li><a href="#"><i class="fa fa-comments"></i>Opiniones recibidas </a></li>
+                        <li><a href="#"><i class="fa fa-comments-o"></i>Opiniones Dejadas </a></li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8 compose-right widget-shadow">
+                <div class="panel-default">
+                    <div class="panel-heading">
+                        Fotografía
+                    </div>
+                    <div class="panel-body">
+
+                        <form class="com-mail">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 ">Soy</label>
+                                    <div class="col-sm-8"> <label> Hombre</label>   </div> <br />
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Nombre</label>
+                                    <div class="col-sm-9"> <input type="email" class="form-control" id="inputEmail3"> <br />  </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">Apellidos</label>
+                                    <div class="col-sm-9"> <input type="password" class="form-control" id="inputPassword3"> <br />  </div>
+                                    <label for="inputEmail3" class="col-sm-2 control-label">E-mail  </label>
+                                    <div class="col-sm-9"> <input type="email" class="form-control" id="inputEmail3">  <br />   </div>
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Télefono  </label> <br />
+                                    <div class="col-sm-9"> <input type="email" class="form-control" id="inputEmail3"> <br />   </div>
+                                    <div class="col-sm-11"><p><input type="checkbox"> No mostrar el # de Teléfono publicamente. </p> <br /></div>
+                                    <label for="sel1" class="col-sm-2"> Año de nacimiento</label>
+                                    <div class="col-sm-9">
+                                        <select id="sel1" class="form-control">
+                                            <option>1998</option>c
+                                            <option>2000</option>
+                                            <option>2005</option>
+                                            <option>2006</option>
+                                        </select>
+                                        <br />
+                                    </div>
+
+                                    <div class="col-sm-2"><label for="comment">Minibiografía</label></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-15">
+                                            <p> <i class="fa fa-info-circle" style="color:darkblue"></i>  Preséntate a los demás usuarios(10 caracteres como mínimo)</p>
+                                        </div>
+                                        <div class="col-sm-15">
+                                            <textarea rows="2" class="form-control1 control2" placeholder=""></textarea>
+                                        </div>
+                                        <p style="color:gray">No escribas</p>
+                                        <div class="col-sm-12">
+                                            <p> <span class="fa-stack fa-fw"><i class="fa fa-phone fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x text-danger"></i></span> Números de teléfono</p>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p> <span class="fa-stack fa-fw"><i class="fa fa-facebook-square fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x text-danger"></i></span> Los detalles de tu cuenta de Facebook</p>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p> <span class="fa-stack fa-fw"><i class="fa fa-road fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x text-danger"></i></span> Detalles sobre viajes concretos</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <center>
+                                    <input type="submit" value="Validar">
+                                </center>
+
+                            </form>
+                            <!-- <input type="submit" value="Validar"> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</body>
+</html>

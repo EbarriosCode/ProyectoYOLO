@@ -1,0 +1,702 @@
+﻿@model Web.Models.ViewModels.BuscarViaje
+@{
+    DateTime fecha = DateTime.Now;
+    string fechaHoy = fecha.ToShortDateString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YOLO</title>
+
+    <!-- meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YOLO-GT</title>
+
+
+    <!-- css -->
+    <link rel="stylesheet" href="~/FrontEnd/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/owl.theme.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/owl.transitions.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/animate.css">
+    <link rel="stylesheet" href="~/FrontEnd/css/custom.css">
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <!-- <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="~/FrontEnd/css/style.css">
+    <link rel="stylesheet" href="~/FrontEnd/assets/css/form-elements.css">
+    <link rel="stylesheet" href="~/FrontEnd/assets/css/style.css">
+   
+
+    <!-- js -->
+    <script src="~/FrontEnd/js/jquery.min.js"></script>
+    <script src="~/FrontEnd/js/bootstrap.min.js"></script>
+    <script src="~/FrontEnd/js/owl.carousel.min.js"></script>
+    <script src="~/FrontEnd/js/isotope.pkgd.min.js"></script>
+    <script src="~/FrontEnd/js/script.js"></script>
+    <script src="~/FrontEnd/js/wow.min.js"></script>
+    <script src="~/FrontEnd/js/jquery.actual.min.js"></script>
+
+    @*<link rel="stylesheet" href="~/FrontEnd/UtilsPanel/css/font-awesome.css">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery UI CSS Reference -->
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
+    <!-- Required jQuery and jQuery UI Javascript references -->
+    
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
+    <!-- Favicon and touch icons -->
+    <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
+</head>
+
+<body>
+    
+    
+    @RenderBody()  
+	 
+	  <!-- Search -->
+    <section id="search">
+      <div class="container">
+        <div class="row text-center" id="heading">
+          <div class="col-md-8 col-md-offset-2 wow animated zoomInDown" id="heading-text">
+            <h3>Buscar Viaje</h3>
+                    <p>Fácil y rápido</p>
+                    <hr class="full">
+                    <br/>
+          </div>
+          </div>        
+        @*@using (Ajax.BeginForm("BuscarViajePost", "Home", null,
+                                                        new AjaxOptions
+                                                        {
+                                                            HttpMethod = "Post",
+                                                            UpdateTargetId = "resultado",
+                                                            OnSuccess = "SuccessMessage",
+                                                            OnFailure = "FailMessage",
+                                                            LoadingElementId = "image_loading"
+                                                        }, new { @class = "form-horizontal", role = "form" }))*@
+        @using (Html.BeginForm("BuscarViajes", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              <div class="panel-body" >
+                <div class="row form-group" >
+                  <div class="col-md-3">
+                    <div class="input-group margin-bottom-sm" >
+                    <span class="input-group-addon"> <i class="fa fa-map-marker " style="color:limegreen"></i> </span>
+                    @*<input type="text" class="form-control" id="search-place_1" placeholder="Ubicación de Partida" />*@
+                    @Html.TextBoxFor(m => m.PuntoPartida, new { @class = "form-control", @id = "search-place_1", @placeholder = "Ubicación de Partida" })
+                    @Html.ValidationMessageFor(m => m.PuntoPartida, "", new { @class = "label label-danger" })
+                    </div>
+                  </div>
+            
+                  <div class="col-md-1"  >
+                    <div class="input-group margin-bottom-sm">
+                    <button type="button" class="btn btn-primary btn-xs"style=" height:100%"  id="cambiar-puntos" ><span><i class="fa fa-exchange" ></i></span></button>
+                    </div>
+                  </div>
+            
+                  <div class="col-md-3">
+                    <div class="input-group margin-bottom-sm">
+                      <span class="input-group-addon"><i class="fa fa-map-marker" style="color:red"></i></span>
+                      @*<input type="text" class="form-control" id="search-place_2" placeholder="Ubicación Destino" />*@
+                      @Html.TextBoxFor(m => m.PuntoDestino, new { @class = "form-control", @id = "search-place_2", @placeholder = "Ubicación Destino" })
+                      @Html.ValidationMessageFor(m => m.PuntoDestino, "", new { @class = "label label-danger" })                   
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <div class="input-group margin-bottom-sm" >
+                      <span class="input-group-addon"><i class="fa fa-calendar" style="color:black"></i></span>
+                      @*<input type="date" name="form-date"  class="form-control form-date" placeholder="Fecha" style="background: #f8f8f8; font-family: 'Roboto', sans-serif;
+                        font-size: 16px; font-weight: 300; color: #888; border: 3px solid #ddd; height: 50px; padding: 0 20px;">*@
+                        @Html.TextBoxFor(m => m.Fecha, new { @class = "form-date form-control", @placeholder = "Fecha de Salida...", type = "date", @id = "fecha-salida",
+                       @style="background: #f8f8f8; font-family: 'Roboto', sans-serif; font - size: 16px; font - weight: 300; color: #888; border: 3px solid #ddd; height: 50px; padding: 0 20px;", @value=fechaHoy })
+                        @Html.ValidationMessageFor(m => m.Fecha, "", new { @class = "label label-danger" })
+                    </div>              
+                  </div>
+                   
+                  <div class="col-md-2" >
+                    <div class="input-group margin-bottom-sm" >
+                    <button  class="btn btn-warning btn-xs" data-toggle="modal" > <i class="fa fa-search" aria-hidden="true" ></i> buscar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
+        </div> 
+        <img src="~/FrontEnd/img/loading.gif" id="image_loading" width="30" height="30" style="display:none" />
+        <div id="resultado"></div>
+    <!-- container -->
+    </section>  <!-- search -->
+			    
+    <!-- About Us -->
+    <section id="about">
+        <div class="container">
+            <div class="row text-center" id="heading">
+                <div class="col-md-8 col-md-offset-2 wow animated zoomInDown" id="heading-text">
+                    <h3>Yolo</h3>
+                    <p>Acerca de nosotros</p>
+                    <hr class="full">
+                    <br />
+                </div>
+            </div>	<!-- row -->
+            <div class="row about-us-text">
+                <div class="col-md-8 col-md-offset-2" >
+                    <p class="text-center">Somos una red social que crea una alternativa para viajar en vehículo a través de la economía compartida con el fin de reducir los costos garantizando la seguridad e integridad de los usuarios, a través de la mejora continua, creando relaciones personales de confianza entre conductores y pasajeros.</p>
+                </div>
+            </div>	<!-- row -->
+            <div class="col-md-8 col-md-offset-2 wow animated zoomIn" data-wow-delay="0.1s">
+                <div align="center">
+                    <img class="pro img-responsive center-block" src="~/FrontEnd/img/compartir.jpg" width="1700" height="1900">
+                </div>
+            </div> <!-- Imagen compartir -->
+        </div>	<!-- container -->
+    </section>	<!-- about us -->
+    <!-- Our service -->
+    <section id="our_service">
+        <div class="container">
+            <div class="row text-center" id="heading">
+                <div class="col-md-6 col-md-offset-3 wow animated zoomInDown" id="heading-text">
+                    <h3>Beneficios</h3>
+                    <p>¡Viaja! ¡Comparte! y ¡Ahorra! </p>
+                    <hr class="full">
+                    <br />
+                </div>
+            </div>
+            <div class="main_content">
+                <div class="services">
+                    <div class="row">
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-money fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">¡Más ahorro!</h3>
+                                <p class="text-center">
+                                    Ahorra al compartir los gastos de tranpsorte con tus compañeros de viaje
+                                </p>
+                            </div>
+                        </div>	<!-- col-sm-4 -->
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-car fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">¡Menos tráfico!</h3>
+                                <p class="text-center">
+                                    Más personas en un solo vehículo, menos vehículos en la carretera.
+                                </p>
+                            </div>
+                        </div>	<!-- col-sm-4 -->
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-thumbs-o-up  fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">¡Más comodidad!</h3>
+                                <p class="text-center">
+                                    Irás mas cómodo que si optas por un trasporte público.
+                                </p>
+                            </div>
+                        </div>	<!-- col-sm-4 -->
+                    </div>	<!-- row -->
+                    <div class="row">
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-users fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">¡Conoce más personas!</h3>
+                                <p class="text-center">
+                                    Podrás hacer nuevos amigos y el compartir y conversar con otros reduce los niveles de estrés.
+                                </p>
+                            </div>
+                        </div>	<!-- col-sm-4 -->
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-map-marker fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">Publica tu viaje</h3>
+                                <p class="text-center">
+                                    Si eres conductor puedes publicar tu viaje y si eres pasajero puedes buscar los viajes que mejor se acomoden a tu destino.
+                                </p>
+                            </div>
+                        </div>	<!-- col-sm-4 -->
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">¡Contacto!</h3>
+                                <p class="text-center">
+                                    Puedes chatear con tus compañeros de viaje para ponerse de acuerdo acerca de los detalles del mismo.
+                                </p>
+                            </div>
+                        </div>	<!-- col-sm-4 -->
+                    </div>	<!-- row -->
+                    <div class="row">
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-globe fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">¡Ayuda al planeta!</h3>
+                                <p class="text-center">
+                                    Reduce las emisiones de CO2, menos autos es menos contaminación.
+                                </p>
+                            </div>
+                        </div>  <!-- col-sm-4 -->
+                        <div class="col-sm-4 service">
+                            <div class="service-icon text-center">
+                                <i class="fa fa-clock-o fa-5x"></i>
+                            </div>
+                            <div class="about-service">
+                                <h3 class="text-center">¡Gana tiempo!</h3>
+                                <p class="text-center">
+                                    Puedes ahorrar tiempo porque no deberás esperar a los horarios predeterminados de otros transportes, aquí eliges el que mejor se adapte a lo que necesitas.
+                                </p>
+                            </div>
+                        </div>  <!-- col-sm-4 -->
+                    </div>  <!-- row -->
+                </div>	<!-- services -->
+            </div>	<!-- main_content -->
+        </div>	<!-- container -->
+    </section>	<!-- our_service -->
+    <!-- Our Team -->
+    <section id="team">
+        <div class="container">
+            <div class="team-members">
+                <div class="row text-center" id="heading">
+                    <div class="col-md-6 col-md-offset-3 wow animated zoomInDown" id="heading-text">
+                        <h3>Equipo</h3>
+                        <p>Estamos para servirte</p>
+                        <hr class="full">
+                        <br />
+                    </div>
+                </div>
+                <div class="row main_content">
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <div class="row wow animated zoomIn" data-wow-delay="0.1s">
+                            <div class="col-md-8 col-md-offset-2">
+                                <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/thelma.jpg" alt="Thelma Judith Miranda Moreno">
+                            </div>
+                        </div>
+                        <h4 class="wow animated fadeInUp" data-wow-delay="0.2s">Thelma Judith Miranda Moreno</h4>
+                        <!-- <p class= "member-title wow animated fadeIn" data-wow-delay= "0.3s">Project Manager</p>
+                        <p class= "team-member-description wow animated fadeIn" data-wow-delay= "0.4s">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna hifd.</p> -->
+                        <div class="row text-center wow animated fadeInDown" data-wow-delay="0.5s">
+                            <div class="team-member-contact">
+                                <a href="#" data-toggle="tooltip" title="Contact with Facebook" class="team-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" title="Contact with Google-plus" class="team-google-plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>	<!-- col-md-4 -->
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <div class="row wow animated zoomIn" data-wow-delay="0.6s">
+                            <div class="col-md-8 col-md-offset-2">
+                                <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/ever.jpg" alt="Ever Oved López Hernández">
+                            </div>
+                        </div>
+                        <h4 class="wow animated fadeInUp" data-wow-delay="0.7s">Ever Oved López Hernández</h4>
+                        <div class="row text-center wow animated fadeInDown" data-wow-delay="0.5s">
+                            <div class="team-member-contact">
+                                <a href="#" data-toggle="tooltip" title="Contact with Facebook" class="team-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" title="Contact with Google-plus" class="team-google-plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>	<!-- col-md-4 -->
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <div class="row wow animated zoomIn" data-wow-delay="1.1s">
+                            <div class="col-md-8 col-md-offset-2">
+                                <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/beto.jpg" alt="Adalberto José Galicia Román">
+                            </div>
+                        </div>
+                        <h4 class="wow animated fadeInUp" data-wow-delay="1.2s">Adalberto José Galicia Román</h4>
+                        <div class="row text-center wow animated fadeInDown" data-wow-delay="0.5s">
+                            <div class="team-member-contact">
+                                <a href="#" data-toggle="tooltip" title="Contact with Facebook" class="team-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" title="Contact with Google-plus" class="team-google-plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>	<!-- col-md-4 -->
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <div class="row wow animated zoomIn" data-wow-delay="1.1s">
+                            <div class="col-md-8 col-md-offset-2">
+                                <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/maitee.jpg" alt="Carol Maitée Galindo Rodríguez">
+                            </div>
+                        </div>
+                        <h4 class="wow animated fadeInUp" data-wow-delay="1.2s">Carol Maitée Galindo Rodríguez</h4>
+                        <div class="row text-center wow animated fadeInDown" data-wow-delay="0.5s">
+                            <div class="team-member-contact">
+                                <a href="#" data-toggle="tooltip" title="Contact with Facebook" class="team-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" title="Contact with Google-plus" class="team-google-plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>  <!-- col-md-4 -->
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <div class="row wow animated zoomIn" data-wow-delay="1.1s">
+                            <div class="col-md-8 col-md-offset-2">
+                                <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/Eduardo.jpg" alt="Eduardo Barrios">
+                            </div>
+                        </div>
+                        <h4 class="wow animated fadeInUp" data-wow-delay="1.2s">Eduardo Barrios</h4>
+                        <div class="row text-center wow animated fadeInDown" data-wow-delay="0.5s">
+                            <div class="team-member-contact">
+                                <a href="#" data-toggle="tooltip" title="Contact with Facebook" class="team-facebook">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#" data-toggle="tooltip" title="Contact with Google-plus" class="team-google-plus">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>  <!-- col-md-4 -->
+                </div> <!-- row main_content -->
+            </div>	<!-- team-members -->
+        </div>	<!-- container -->
+    </section>	<!-- team -->
+    <!-- Price-Table -->
+    @*<section id="price_table">
+        <div class="container">
+            <div class="row text-center" id="heading">
+                <div class="col-md-6 col-md-offset-3 wow animated zoomInDown" id="heading-text">
+                    <h3>Membresías</h3>
+                    <p>Elije la que gustes</p>
+                    <hr class="full">
+                    <br />
+                </div>
+            </div>	<!-- row -->
+            <div class="row main_content">
+                <ul class="price-table-chart">
+                    <li>
+                        <a href="#">
+                            <strong>Free</strong>
+                            <span class="price_table-description">1 Website</span>
+                            <span class="price_table-description">1 Year Updates</span>
+                            <span class="price_table-description">No Email Support</span>
+                            <big class="price_table-price">$0</big>
+                            <span class="price_table-button">Buy Now</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <strong>Business</strong>
+                            <span class="price_table-description">Unlimited Websites</span>
+                            <span class="price_table-description">1 Year Updates</span>
+                            <span class="price_table-description">1 Year Email Support</span>
+                            <big class="price_table-price">$90</big>
+                            <span class="price_table-button">Buy Now</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <strong>Premium</strong>
+                            <span class="price_table-description">Unlimited Websites</span>
+                            <span class="price_table-description">Lifetime Updates</span>
+                            <span class="price_table-description">Lifetime Email Support</span>
+                            <big class="price_table-price">$190</big>
+                            <span class="price_table-button">Buy Now</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>	<!-- row main_content -->
+        </div>	<!-- container -->
+    </section>	<!-- price_table -->*@
+    <!-- Clients -->
+    @*<section id="testimonial">
+        <div class="container">
+            <div class="row text-center" id="heading">
+                <div class="bg-image col-md-12">
+                    <div class="col-md-6 col-md-offset-3 wow animated zoomInDown" id="heading-text">
+                        <h3>Testimonios</h3>
+                        <p>Tu satisfacción es nuestra inspiración.</p>
+                        <hr class="full">
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row main_content">
+                <div class="col-md-6 col-md-offset-3">
+                    <div id="client-speech" class="owl-carousel owl-theme">
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/client1.png">
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="client-comment text-center">
+                                        When you form a team, why do you try to form a team? Because teamwork builds trust and trust builds speed.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <p class="client-name text-center"> ----- Noona Nuengthida Sophon</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/client2.jpg">
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="client-comment text-center">
+                                        I am constantly being asked about individuals.&nbsp;The only way to win is as a team. Football is not about one or two or three star players.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <p class="client-name">-----Md. Aminul Islam Bhuiyan</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <img class="img-circle img-responsive center-block" src="~/FrontEnd/img/client3.png">
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="client-comment text-center">
+                                        Individual commitment to a group effort- that is what makes a team work, a company work, a society work, a civilisation work.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <p class="client-name">-----  Jenifar Pink</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@	<!-- clients -->
+    <!-- contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="row text-center" id="heading">
+                <div class="bg-image">
+                    <div class="col-lg-6 col-lg-offset-3 share-text wow animated zoomInDown" id="heading-text">
+                        <h3 class="text-center">Contáctanos</h3>
+                        <p>Tu opinión es importante</p>
+                        <hr class="full">
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center main_content">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <form method="post" action="#">
+                        <div class="form">
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user fa-fw"></i>
+                                </span>
+                                <input class="form-control" type="text" placeholder="Nombre" required>
+                            </div>
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope-o fa-fw"></i>
+                                </span>
+                                <input class="form-control" type="text" placeholder="Email" required>
+                            </div>
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-tags fa-fw"></i>
+                                </span>
+                                <input class="form-control" type="text" placeholder="Asunto">
+                            </div>
+                        </div>
+                        <div class="input-group margin-bottom-sm">
+                            <span class="input-group-addon">
+                                <i class="fa fa-comment-o fa-fw"></i>
+                            </span>
+                            <textarea class="form-control" rows="6" type="text" placeholder="Tu mensaje" required></textarea>
+                        </div>
+                        <input class="btn btn-primary send" type="submit" value="Enviar Mensaje">
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <ul class="socials-icons">
+                        <li>
+                            <a href="https://www.facebook.com/yoloreu/" data-toggle="tooltip" title="Share in Facebook" class="facebook"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        @*<li>
+                            <a href="#" data-toggle="tooltip" title="Share in Google +" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="tooltip" title="Share in Instagram" class="instagram"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="tooltip" title="Share in Pinterest" class="pinterest"><i class="fa fa-pinterest"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="tooltip" title="Connect with Skype" class="skype"><i class="fa fa-skype"></i></a>
+                        </li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>	<!-- contacts -->
+
+    <!-- footer -->
+    <section id="footer" class="main-footer">
+        <div class="row">
+            <div class="logo text-center">
+                <h1>YOLO</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="copyright text-center">
+                <p> © 2017 </p>
+            </div>
+        </div>
+     </section><!-- footer -->
+        <!-- js -->
+        <script>
+			$(document).ready(function() {
+  				$("#client-speech").owlCarousel({
+  					autoPlay: 3000,
+      				navigation : false, // Show next and prev buttons
+      				slideSpeed : 700,
+      				paginationSpeed : 1000,
+      				singleItem:true
+  				});
+			});
+        </script>
+        <script>
+ 			new WOW().init();
+        </script>
+        <script>
+			$( function() {
+				  // init Isotope
+			  	var $container = $('.isotope').isotope
+			  	({
+				    itemSelector: '.element-item',
+				    layoutMode: 'fitRows'
+			  	});
+
+
+  				// bind filter button click
+  				$('#filters').on( 'click', 'button', function()
+  				{
+				    var filterValue = $( this ).attr('data-filter');
+				    // use filterFn if matches value
+				    $container.isotope({ filter: filterValue });
+				 });
+
+			  // change is-checked class on buttons
+			  	$('.button-group').each( function( i, buttonGroup )
+			  	{
+			    	var $buttonGroup = $( buttonGroup );
+			    	$buttonGroup.on( 'click', 'button', function()
+			    	{
+			      		$buttonGroup.find('.is-checked').removeClass('is-checked');
+			      		$( this ).addClass('is-checked');
+			    	});
+			  	});
+
+			});
+        </script>
+        <script src="~/FrontEnd/js/jquery-ui-1.10.3.min.js"></script>
+        <script src="~/FrontEnd/js/jquery.knob.js"></script>
+        <script src="~/FrontEnd/js/daterangepicker.js"></script>
+        <script src="~/FrontEnd/js/bootstrap3-wysihtml5.all.min.js"></script>
+
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6fmXzp7cTuH_1_sWZ0Z1EtGTfDJHrnY0&libraries=places"></script>
+        <script>
+            //Convertir a autocomplete de google los input
+            
+            const search_input_1 = document.getElementById('search-place_1');
+            const search_input_2 = document.getElementById('search-place_2');
+
+            /*var cityBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(14.6407200, -90.5132700),
+                new google.maps.LatLng(14.6407200, -90.5132700),
+            );
+            var opciones = {
+                bounds: cityBounds,
+                types: ['(geocode)'],
+                componetRestrictions: {country: "gt"}
+            };*/
+
+            const autocomplete1 = new google.maps.places.Autocomplete(search_input_1);
+            const autocomplete2 = new google.maps.places.Autocomplete(search_input_2);
+
+            autocomplete1.setComponentRestrictions(
+                {'country' : 'gt'}
+            );
+
+            autocomplete2.setComponentRestrictions(
+                { 'country': 'gt' }
+            );
+            /*$.datepicker.setDefaults($.datepicker.regional["es"]);
+            $("#fecha-salida").datepicker({
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1
+            }).datepicker("setDate", new Date());*/
+            
+            var hoy = new Date();
+            var dd = hoy.getDate();
+            var mm = hoy.getMonth()+1;
+            var yy = hoy.getFullYear();
+            
+            if (dd < 10)
+                dd = '0' + dd;
+
+            if (mm < 10)
+                mm = '0' + mm;
+
+            hoy = yy+'/' + mm + '/'+dd;
+            //alert(hoy);
+            //$("#fecha-salida").val(hoy);
+        </script>
+        <script>
+            $(function () {
+                var partida;
+                var destino;
+
+                $('#search-place_1').blur(function () {
+                    partida = $('#search-place_1').val();
+                });
+
+                $('#search-place_2').blur(function () {
+                    destino = $('#search-place_2').val();
+                });
+
+                $("#cambiar-puntos").click(function () {
+                    $('#search-place_1').val(destino);
+                    $('#search-place_2').val(partida);
+                });
+            });
+            
+        </script>
+</body>
+</html>

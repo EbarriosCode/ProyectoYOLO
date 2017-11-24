@@ -68,7 +68,7 @@ namespace Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl = "~/User/")
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl = "~/User/Perfil")
         {
             if (!ModelState.IsValid)
             {
@@ -169,7 +169,7 @@ namespace Web.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Perfil", "User");
                 }
                 AddErrors(result);
             }

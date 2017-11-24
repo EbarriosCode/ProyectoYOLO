@@ -143,6 +143,49 @@ namespace Web.Controllers
             //return View("ViajesContinuacion", ViewModel);
         }
 
+        [HttpGet]
+        public ActionResult MisReservas(int? page)
+        {
+            string IdUser = User.Identity.GetUserId();
+            
+            //List<Reserva> misReservas = db.Reservas.                                    
+            //                        Where(x => x.ApplicationUserId == IdUser).
+            //                        OrderByDescending(x => x.ReservaId).                                    
+            //                        ToList();
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+
+            //Reservas con ViewModel SE ENVIA A LA VISTA
+            var MisReservasList = db.ViajesReservas.Where(x => x.Reserva.ApplicationUserId == IdUser).ToList();
+            List<MisReservasViewModel> rsViewModel = new List<MisReservasViewModel>();
+
+            foreach (var rs in MisReservasList)
+            {
+                MisReservasViewModel obj = new MisReservasViewModel();
+
+                obj.NombreConductor = rs.Viaje.ApplicationUser.Nombres;
+                obj.ApellidoConductor = rs.Viaje.ApplicationUser.Apellidos;
+                obj.TelefonoConductor = rs.Viaje.ApplicationUser.PhoneNumber;
+                obj.PuntoSalida = rs.Viaje.PuntoPartida;
+                obj.PuntoDestino = rs.Viaje.PuntoDestino;
+                obj.FechaSalida = rs.Viaje.FechaSalida;
+                obj.HoraSalida = rs.Viaje.HoraSalida;
+                obj.FechaRegreso = rs.Viaje.FechaRegreso;
+                obj.HoraRegreso = rs.Viaje.HoraRegreso;
+                obj.Distancia = rs.Viaje.Distancia;
+                obj.Duracion = rs.Viaje.Duracion;
+                obj.Tarifa = rs.Viaje.Tarifa;
+                obj.NumAsientosReservados = rs.Reserva.NumAsientos;
+
+                rsViewModel.Add(obj);
+            }
+
+            return View(rsViewModel.ToPagedList(pageNumber, pageSize));           
+        }
+       
+
         public ActionResult ModeloAjax()
         {
             return View();
@@ -164,12 +207,26 @@ namespace Web.Controllers
             model = null;
             return View(model);
         }
+
+        public ActionResult ReservasViajeDetalle(int idViaje)
+        {
+            Console.Write(idViaje);
+
+            var listaReservaciones = db.ViajesReservas.Where(x => x.ViajeId == idViaje).ToList();
+            return PartialView("_ReservasViajeDetalle", listaReservaciones);
+        }
+
         public ActionResult Mapa()
         {
             return View();
         }
 
         public ActionResult Configuracion()
+        {
+            return View();
+        }
+
+        public ActionResult Politicas()
         {
             return View();
         }

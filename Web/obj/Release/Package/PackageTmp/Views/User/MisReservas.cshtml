@@ -1,0 +1,85 @@
+﻿@*@model List<Web.Models.Reserva>*@
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Web.Models.ViewModels.MisReservasViewModel>
+@{
+    ViewBag.Title = "MisReservas";
+    Layout = "~/Views/Shared/_LayoutPanelUser.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Mis Reservas (@Model.TotalItemCount)</h2>
+        </div>
+        
+
+        <div class="col-md-12" style="margin-top:15px">
+            <div class="grid_4 widget-shadow">
+                <article class="row">
+                    <br />
+                    <!--empiezan los registros-->
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-2">
+                            <center>
+                                <div class="col-md-2" style="width:100%; height: 50%; ">
+                                    <img src="~/FrontEnd/img/no-foto.jpg" alt="" style="vertical-align: middle; border: 4px; border-radius: 63%; width:40%;">
+                                </div>
+                                <div style=" width:100%; height: 50%; ">
+                                    <label style="width:49%;" class="text-warning">Conductor</label><br />
+                                    <label style="width:49%; float:left; text-align: right; ">@item.NombreConductor</label>
+                                    <label style="width:49%; float:right; text-align: left; ">@item.ApellidoConductor</label>
+                                    @*<label for="" style="width:49%;text-align: left; float:right">@item.ApplicationUser.Apellidos</label>*@
+
+                                    
+                                    <label style="width:39%; float:left; text-align: right; " class="text-warning">Tel.  </label>
+                                    <label style="width:49%; float:left; text-align: left;"> @item.TelefonoConductor</label>
+                                </div>
+                            </center>
+                        </div>
+
+                        <div class="col-md-10">
+                            <div class="col-md-7">
+
+                                <h3>Salida: <label for="">@item.FechaSalida</label> a las <label for="">@item.HoraSalida</label> hrs.</h3>
+                                <h3>Regreso: <label for="">@item.FechaRegreso</label> a las <label for="">@item.HoraRegreso</label> hrs.</h3>
+                                <br />
+                                <div>
+                                    <span><i class="fa fa-map-marker" style="color:green"></i> Descripción de origen: @item.PuntoSalida</span>
+
+                                    <br />
+                                    <span><i class="fa fa-map-marker" style="color:red"></i> Descripción de destino: @item.PuntoDestino</span>
+                                </div>
+
+                                <label style="width:49%; float:left; text-align: left; " class="text-warning">Distancia </label>
+                                <label style="width:49%; float:left; text-align: left; ">@item.Distancia</label>
+
+                                <label style="width:49%; float:left; text-align: left; " class="text-warning">Duración del Viaje </label>
+                                <label style="width:49%; float:left; text-align: left; ">@item.Duracion</label>
+                                <br />
+                                <hr />
+                            </div>
+                            
+                            <div class="col-md-3" style=" height:100%">
+                                <center style="margin-top:-15px">
+                                    <h2><span class="fa fa-quora"></span> <label for="">@item.Tarifa</label></h2>
+                                    <h4>Por asiento</h4>
+                                    <br />
+                                    <span>reservaste </span><strong> @item.NumAsientosReservados </strong> <span> asientos</span>
+                                </center>
+                            </div>
+                        </div>
+                        <!--terminan los registros-->
+
+                    }
+
+                </article>
+
+            </div>
+            @Html.PagedListPager(Model, page => Url.Action("MisReservas", new { page = page }), PagedListRenderOptions.PageNumbersOnly)
+        </div>
+    </div>
+</div>
+
+
+

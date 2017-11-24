@@ -16,7 +16,7 @@ namespace Web.Models
         //Relacion del usuario en una reserva
         [Display(Name ="Pasajero Id")]
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         
         [Display(Name = "Número de Asientos")]
         public int NumAsientos { get; set; }
