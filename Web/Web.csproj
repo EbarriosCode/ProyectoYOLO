@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MensajesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,9 +260,14 @@
     <Compile Include="Migrations\201711180442025_Temp_UserNames.Designer.cs">
       <DependentUpon>201711180442025_Temp_UserNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711242021006_Model_Relation_Mensajes_Conversacion_ApplicationUser.cs" />
+    <Compile Include="Migrations\201711242021006_Model_Relation_Mensajes_Conversacion_ApplicationUser.Designer.cs">
+      <DependentUpon>201711242021006_Model_Relation_Mensajes_Conversacion_ApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Chat.cs" />
+    <Compile Include="Models\Conversacion.cs" />
+    <Compile Include="Models\Mensajes.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModeloAjax.cs" />
@@ -271,6 +277,7 @@
     <Compile Include="Models\Viaje.cs" />
     <Compile Include="Models\ViajeReserva.cs" />
     <Compile Include="Models\ViewModels\BuscarViaje.cs" />
+    <Compile Include="Models\ViewModels\ConversacionViewModel.cs" />
     <Compile Include="Models\ViewModels\MisReservasViewModel.cs" />
     <Compile Include="Models\ViewModels\ViajeDetalleViewModel.cs" />
     <Compile Include="Models\ViewModels\ViajeViewModel.cs" />
@@ -753,12 +760,15 @@
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Chat\Chat.cshtml" />
     <Content Include="Views\Chat\_ChatMessages.cshtml" />
-    <Content Include="Views\Chat\ChatDefault.cshtml" />
+    <Content Include="Views\Mensajes\ChatDefault.cshtml" />
     <Content Include="Views\User\MisReservas.cshtml" />
     <Content Include="Views\User\Configuracion.cshtml" />
     <Content Include="Views\Home\Busqueda.cshtml" />
     <Content Include="Views\User\_ReservasViajeDetalle.cshtml" />
     <Content Include="Views\User\Politicas.cshtml" />
+    <Content Include="Views\Mensajes\Contactos.cshtml" />
+    <Content Include="Views\Mensajes\Index.cshtml" />
+    <Content Include="Views\Mensajes\_MensajesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -811,6 +821,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711180442025_Temp_UserNames.resx">
       <DependentUpon>201711180442025_Temp_UserNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711242021006_Model_Relation_Mensajes_Conversacion_ApplicationUser.resx">
+      <DependentUpon>201711242021006_Model_Relation_Mensajes_Conversacion_ApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

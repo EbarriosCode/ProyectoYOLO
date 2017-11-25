@@ -7,11 +7,11 @@ using System.Web;
 
 namespace Web.Models
 {
-    [Table("Chat")]
-    public class Chat
+    [Table("Mensaje")]
+    public class Mensajes
     {
         [Key]
-        public int ChatId { get; set; }
+        public int MensajeId { get; set; }
 
         [ForeignKey("ApplicationUserEnvia")]
         public string UsuarioEnvia { get; set; }        
@@ -21,14 +21,14 @@ namespace Web.Models
         public string UsuarioRecibe { get; set; }                
         public virtual ApplicationUser ApplicationUserRecibe { get; set; }
 
-        public string NombreUsuarioEnvia { get; set; }
-        public string NombreUsuarioRecibe { get; set; }
-
         [Required(ErrorMessage ="{No se admiten mensajes vacíos}")]
         [DataType(DataType.MultilineText)]
         public string Mensaje { get; set; }
 
         public DateTime FechaCreacion { get; set; }
+
+        //Propiedad virtual para navegar entre conversaciones
+        public virtual ICollection<Conversacion> Conversaciones { get; set; }
 
     }
 }

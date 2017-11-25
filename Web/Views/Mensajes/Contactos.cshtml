@@ -1,0 +1,57 @@
+﻿@model List<Web.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Contactos";
+    Layout = "~/Views/Shared/_LayoutPanelUser.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center text-warning">Contactos Comunidad YOLO-GT</h2>
+            <hr />
+            <div class="row">                
+            </div>
+            @using (Html.BeginForm("Contactos", "Mensajes", FormMethod.Post))
+            {
+                <div class="form-group col-md-6">                    
+                    <input type="text" name="usuario" class="form-control" placeholder="Busca un Usuario para comunicarte con el"/>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="submit" class="btn btn-success" value="Buscar" />
+                </div>
+                
+            }
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr class="active">
+                        <th class="text-center">Usuario YOLO</th>
+                        <th colspan="2" class="text-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Nombres @item.Apellidos</td>
+                            <td class="text-center">@using (Html.BeginForm("EnviarMensaje", "Mensajes", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="idConductor" value="@item.Id" />
+                                    <button class="btn btn-warning">Enviar Mensaje <i class="glyphicon glyphicon-comment"></i></button>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @using (Html.BeginForm("EnviarMensaje", "Mensajes", FormMethod.Post))
+                            {
+                                <input type="hidden" name="idConductor" value="@item.Id" />
+                                    <button class="btn btn-info">Ver Conversación <i class="glyphicon glyphicon-eye-open"></i></button>
+                            }
+                        </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -13,7 +13,7 @@ namespace Web.Controllers
     [Authorize]
     public class ChatController : Controller
     {
-        List<Chat> ChatsList = new List<Chat>();
+        List<Mensajes> ChatsList = new List<Mensajes>();
         
         // GET: Chat
         public ActionResult Index()
@@ -46,23 +46,7 @@ namespace Web.Controllers
         public ActionResult ChatDefault()
         {
 
-            using (var context = new ApplicationDbContext())
-            {
-                ChatsList = context.Mensajes
-                                   .Include("ApplicationUserEnvia")
-                                   .Include("ApplicationUserRecibe")
-                                   .ToList();
-            }
-
-            //Id y Username del pasajero
-            ViewBag.UsuarioEnvia = User.Identity.GetUserId();
-            ViewBag.NombreUsuarioEnvia = User.Identity.GetUserName();
-
-            //Id y Username del conductor
-            ViewBag.UsuarioRecibe = Session["IdUsuarioConductor"].ToString();
-            var ctx = Request.GetOwinContext().Get<ApplicationDbContext>();
-            var usernameConductor = ctx.Users.Find(Session["IdUsuarioConductor"].ToString());
-            ViewBag.NombreUsuarioRecibe = usernameConductor.UserName;
+            
 
             return View();
         }
@@ -119,7 +103,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Insert(Chat model)
+        public ActionResult Insert(Mensajes model)
         {
             //model.ToString();
             model.FechaCreacion = DateTime.Now;
@@ -145,7 +129,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult InsertDefault(Chat model)
+        public ActionResult InsertDefault(Mensajes model)
         {
             //model.ToString();
             model.FechaCreacion = DateTime.Now;

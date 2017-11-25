@@ -134,3 +134,4 @@ C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Releas
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Release\Web.csproj.GenerateResource.Cache
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Release\Web.dll
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Release\Web.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Release\Web.Migrations.Model_Relation_Mensajes_Conversacion_ApplicationUser.resources

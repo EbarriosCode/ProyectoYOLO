@@ -23,14 +23,12 @@
 
             <div class="panel-footer">
                 <div class="input-group">
-
+                    <input type="hidden" id="input-usuarioRecibe" value="@ViewBag.UserDestino" />
                     <input type="hidden" id="input-usuarioEnvia" value="@ViewBag.UsuarioEnvia" />
-                    <input type="hidden" id="input-usuarioRecibe" value="@ViewBag.UsuarioRecibe" />
-                    <input type="hidden" id="nombre-usuarioEnvia" value="@ViewBag.NombreUsuarioEnvia" />
-                    <input type="hidden" id="nombre-usuarioRecibe" value="@ViewBag.NombreUsuarioRecibe" />
+
                     <input id="input-mensaje" type="text" class="form-control input-sm chat_input" placeholder="Escriba su mensaje aquí..." />
                     <span class="input-group-btn">
-                        <button class="btn btn-primary btn-sm" id="btn-chat" onclick="InsertMessage()"><i class="fa fa-send fa-1x" aria-hidden="true"></i></button>
+                        <button class="btn btn-primary btn-sm" id="btn-enviar" onclick="InsertMessage()"><i class="fa fa-send fa-1x" aria-hidden="true"></i></button>
                     </span>
                 </div>
             </div>
@@ -61,7 +59,7 @@
     function FetchMessages() {
         var contenedor = $('#contenedor');
         $.ajax({
-            url: '/Chat/GetAllMessages',
+            url: '/Mensajes/GetAllMessages',
             contentType: 'application/html ; charset:utf-8',
             type: 'GET',
             dataType: 'html'
@@ -77,14 +75,12 @@
         var message = {
             UsuarioEnvia: $("#input-usuarioEnvia").val(),
             UsuarioRecibe: $("#input-usuarioRecibe").val(),
-            NombreUsuarioEnvia: $("#nombre-usuarioEnvia").val(),
-            NombreUsuarioRecibe: $("#nombre-usuarioRecibe").val(),
-            Mensaje: $('#input-mensaje').val(),            
+            Mensaje: $('#input-mensaje').val()
         };
 
 
         $.ajax({
-            url: '/Chat/InsertDefault',
+            url: '/Mensajes/InsertMensaje',
             type: 'POST',
             data: JSON.stringify(message),
             contentType: "application/json;charset=utf-8",

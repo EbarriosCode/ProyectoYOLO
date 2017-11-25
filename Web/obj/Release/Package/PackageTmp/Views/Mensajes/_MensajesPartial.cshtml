@@ -1,0 +1,13 @@
+﻿@if(Model != null)
+{
+    foreach(var item in Model)
+    {
+        <div class="col-md-12 col-xs-12">
+            <div class="chat-num-messages msg_sent">
+                <li>
+                    <strong>@item.NombreUserEnvia: </strong>@item.ListaMensajes
+                </li>
+            </div>
+        </div>
+    }
+}

@@ -60,7 +60,7 @@
                                     <p style="height:15px"></p>
                                     @*<a href="#" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i> Contactar al conductor</a>*@
                                     
-                                    @using (Html.BeginForm("ChatDefault", "Chat",FormMethod.Post))
+                                    @using (Html.BeginForm("ChatDefault", "Mensajes",FormMethod.Post))
                                     {
                                         <input type="hidden" name="IdUsuarioConductor" value="@Model.ApplicationUserId" />
                                         <button type="submit" class="btn btn-primary"><i class="fa fa-comments-o" aria-hidden="true"></i> Contactar al conductor</button>

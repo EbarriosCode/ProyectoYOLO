@@ -47,12 +47,16 @@ namespace Web.Models
         //Propiedad Virtual para la Relación Viaje/Reserva
         public virtual ICollection<Reserva> Reservas { get; set; }
 
-        //Propiedad Virtual para la Relación Usuarios/Mensajes en el chat
-        [InverseProperty("ApplicationUserEnvia")]
-        public virtual ICollection<Chat> MensajesEnvia { get; set; }
 
-        [InverseProperty("ApplicationUserRecibe")]
-        public virtual ICollection<Chat> MensajesRecibe { get; set; }
+        //Propiedad Virtual para la Relación mensajes/conversacion -> Usuarios
+        public virtual ICollection<Conversacion> Conversaciones { get; set; }
+
+        //Propiedad Virtual para la Relación Usuarios/Mensajes en el chat
+        //[InverseProperty("ApplicationUserEnvia")]
+        //public virtual ICollection<Mensajes> MensajesEnvia { get; set; }
+
+        //[InverseProperty("ApplicationUserRecibe")]
+        //public virtual ICollection<Mensajes> MensajesRecibe { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -98,6 +102,7 @@ namespace Web.Models
         public DbSet<ViajeReserva> ViajesReservas { get; set; }
         public DbSet<TipoVehiculo> TipoVehiculo { get; set; }
         public DbSet<Sexo> Sexo { get; set; }
-        public DbSet<Chat> Mensajes { get; set; }
+        public DbSet<Mensajes> Mensajes { get; set; }
+        public DbSet<Conversacion> Conversaciones { get; set; }
     }
 }
