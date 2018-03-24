@@ -135,3 +135,4 @@ C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.pdb
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.Migrations.Model_Relation_Mensajes_Conversacion_ApplicationUser.resources
 C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2017\Projects\ProyectoYOLO\Web\obj\Debug\Web.csproj.CoreCompileInputs.cache
